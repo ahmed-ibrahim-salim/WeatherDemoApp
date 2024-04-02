@@ -9,9 +9,7 @@ import UIKit
 
 struct Colors {
     
-    static private var currentTheme: UIUserInterfaceStyle {
-        UITraitCollection.current.userInterfaceStyle
-    }
+    static private let currentTheme = UITraitCollection.current.userInterfaceStyle
     
     static var mainBtnBackgroundColor: UIColor? = {
         currentTheme == .light ? UIColor(hex: "2388C7") : UIColor(hex: "C53249")
@@ -25,11 +23,19 @@ struct Colors {
         currentTheme == .light ? UIColor(hex: "3D4548") : UIColor(hex: "797F88")
     }()
     
+    static var pageGradientFirstColor: CGColor? = {
+        currentTheme == .light ? UIColor.white.cgColor : UIColor(hex: "262627")?.cgColor
+    }()
+    
+    static var pageGradientSecondColor: CGColor? = {
+        currentTheme == .light ? UIColor(hex: "D6D3DE")?.cgColor : UIColor(hex: "242325")?.cgColor
+    }()
+    
     static var pageGradient = {
         return GradientItem(
             colors: [
-                UIColor.white.cgColor,
-                UIColor(hex: "D6D3DE")?.cgColor]
+                pageGradientFirstColor,
+                pageGradientSecondColor]
                 .compactMap {
                     $0
                 },

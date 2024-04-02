@@ -17,6 +17,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             self.window = window
             
+            window.overrideUserInterfaceStyle = .dark
+
+            
             let citiesViewModel = CitiesViewModel()
             let navController = UINavigationController()
             let viewControlller = CitiesViewController(viewModel: citiesViewModel)

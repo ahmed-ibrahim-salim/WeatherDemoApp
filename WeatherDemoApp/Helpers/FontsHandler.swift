@@ -12,13 +12,6 @@ enum AppFonts: String {
     case bold = "Bold"
     case regular = "Regular"
     
-    private func getArFontName(_ fontName: String,
-                               _ font: AppFonts) -> String {
-        
-        return rawValue.isEmpty ? fontName : (fontName + "-" + font.rawValue)
-        
-    }
-    
     private var fullFontName: String {
         let fontName = "SFProText"
         return rawValue.isEmpty ? fontName : (fontName + "-" + rawValue)

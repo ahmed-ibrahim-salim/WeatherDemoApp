@@ -64,7 +64,36 @@ class CitiesViewController: UITableViewController {
     }
     
     private func setupRightBtn() {
-        let callback: VoidCallback = { print("callback from controller") }
+        let callback: VoidCallback = { [unowned self] in
+            // create the actual alert controller view that will be the pop-up
+            let alertController = UIAlertController(
+                title: "City",
+                message: "Enter city name",
+                preferredStyle: .alert
+            )
+
+            alertController.addTextField { textField in
+                // configure the properties of the text field
+                textField.placeholder = "Cairo"
+            }
+
+            // add the buttons/actions to the view controller
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let saveAction = UIAlertAction(title: "Search", style: .default) { _ in
+
+                // this code runs when the user hits the "Search" button
+                let inputName = alertController.textFields?[0].text
+
+                print(inputName)
+
+            }
+
+            alertController.addAction(cancelAction)
+            alertController.addAction(saveAction)
+
+            present(alertController, animated: true, completion: nil)
+        }
+        
         let model = ReusableBtnModel(btnTappedAction: callback,
                                      btnImage: UIImage(systemName: "plus"))
         rightBtn.configureBtnWith(model)
@@ -83,6 +112,7 @@ class CitiesViewController: UITableViewController {
     )
 }
 
+
 // MARK: Constaints
 extension CitiesViewController {
     
@@ -97,7 +127,7 @@ extension CitiesViewController {
                     constant: 20
                 ),
                 rightBtn.heightAnchor.constraint(equalToConstant: 53),
-                rightBtn.widthAnchor.constraint(equalToConstant: 110)
+                rightBtn.widthAnchor.constraint(equalToConstant: 90)
             ]
         )
     }
