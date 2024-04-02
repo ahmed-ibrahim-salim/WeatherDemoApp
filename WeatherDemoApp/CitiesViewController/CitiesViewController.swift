@@ -16,6 +16,7 @@ class CitiesViewModel: BaseViewModel {
 class CitiesViewController: UITableViewController {
     
     private var viewModel: CitiesViewModel!
+    private var gradientView: CAGradientLayer?
 
     init(viewModel: CitiesViewModel) {
         super.init(style: .plain)
@@ -26,41 +27,60 @@ class CitiesViewController: UITableViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-
+        view.backgroundColor = UIColor(hex: "D6D3DE")
+        
+        setupRightBtn()
+        setupPageTitleLbl()
+        addGradient()
+        
         addPageTitleLabelConstaints()
         addBtnViewConstaints()
+        addBottomImageConstaints()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        // to activate gradient
+        gradientView?.frame = view.bounds
+    }
+    
+    // MARK: View Configurators
+    private func addGradient() {
+        let pageGradient = Colors.pageGradient
+        
+        gradientView = view.setGradient(colors: pageGradient.colors,
+                                        locations: pageGradient.locations,
+                                        startPoint: pageGradient.startPoint,
+                                        endPoint: pageGradient.endPoint)
+    }
+    
+    private func setupPageTitleLbl() {
+        pageTitleLbl.setTitle("Cities")
+    }
+    
+    private func setupRightBtn() {
+        let callback: VoidCallback = { print("callback from controller") }
+        let model = ReusableBtnModel(btnTappedAction: callback,
+                                     btnImage: UIImage(systemName: "plus"))
+        rightBtn.configureBtnWith(model)
     }
     
     // MARK: SubViews
-    private lazy var addBtnView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(hex: "2388C7")
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 20
-//        view.layer.masksToBounds = false
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 0.2
-        view.layer.shadowOffset = CGSize(width: 0, height: 8)
-        view.layer.shadowRadius = 10
-        return view
-    }()
-    
-    // MARK: Page Title
-    private lazy var pageTitleLbl: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Cities"
-        label.font = AppFonts.bold.size(20)
-        label.numberOfLines = 0
-        label.textAlignment = .center
-  
-        return label
-    }()
-    
-
+    private lazy var rightBtn = ReusableButton()
+    private lazy var pageTitleLbl = ReusableBoldLabel()
+    private lazy var bottomImage = ReusableBottomImage(
+        frame: CGRect(
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+        )
+    )
 }
 
 // MARK: Constaints
@@ -68,17 +88,16 @@ extension CitiesViewController {
     
     private func addBtnViewConstaints() {
         
-        view.addSubview(addBtnView)
+        view.addSubview(rightBtn)
         NSLayoutConstraint.activate(
             [
-                addBtnView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
-                addBtnView.trailingAnchor.constraint(
+                rightBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+                rightBtn.trailingAnchor.constraint(
                     equalTo: view.safeAreaLayoutGuide.trailingAnchor,
-                    constant: 15
+                    constant: 20
                 ),
-                addBtnView.heightAnchor.constraint(equalToConstant: 53),
-                addBtnView.widthAnchor.constraint(equalToConstant: 110)
-                
+                rightBtn.heightAnchor.constraint(equalToConstant: 53),
+                rightBtn.widthAnchor.constraint(equalToConstant: 110)
             ]
         )
     }
@@ -89,6 +108,18 @@ extension CitiesViewController {
         NSLayoutConstraint.activate([
             pageTitleLbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             pageTitleLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
+        ])
+    }
+    
+    private func addBottomImageConstaints() {
+        
+        view.addSubview(bottomImage)
+        NSLayoutConstraint.activate([
+            bottomImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bottomImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            bottomImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            bottomImage.heightAnchor.constraint(equalToConstant: 200)
+
         ])
     }
 }
