@@ -9,9 +9,14 @@
 /* Begin PBXBuildFile section */
 		3B68E2BFFBC88512A57C9B5B /* Pods_WeatherDemoApp_WeatherDemoAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50F02C54A0249ED58AF9E3F /* Pods_WeatherDemoApp_WeatherDemoAppUITests.framework */; };
 		D637AA4870A710A909492FAC /* Pods_WeatherDemoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0C26DC6B3A8BF1FE1D294BB /* Pods_WeatherDemoApp.framework */; };
+		E24C0DF32BBBED3B004F1D56 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24C0DF22BBBED3B004F1D56 /* BaseViewModel.swift */; };
+		E24C0E012BBBF3A2004F1D56 /* FontsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24C0E002BBBF3A2004F1D56 /* FontsHandler.swift */; };
+		E24C0E052BBBF4C6004F1D56 /* SFProText-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = E24C0E032BBBF4C6004F1D56 /* SFProText-Regular.otf */; };
+		E24C0E062BBBF4C6004F1D56 /* SFProText-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E24C0E042BBBF4C6004F1D56 /* SFProText-Bold.otf */; };
+		E24C0E092BBBF625004F1D56 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24C0E082BBBF625004F1D56 /* UIColor.swift */; };
 		E2D5EDC02BBA9486007CC59E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDBF2BBA9486007CC59E /* AppDelegate.swift */; };
 		E2D5EDC22BBA9486007CC59E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDC12BBA9486007CC59E /* SceneDelegate.swift */; };
-		E2D5EDC42BBA9486007CC59E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDC32BBA9486007CC59E /* ViewController.swift */; };
+		E2D5EDC42BBA9486007CC59E /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDC32BBA9486007CC59E /* CitiesViewController.swift */; };
 		E2D5EDC92BBA9488007CC59E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2D5EDC82BBA9488007CC59E /* Assets.xcassets */; };
 		E2D5EDCC2BBA9488007CC59E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2D5EDCA2BBA9488007CC59E /* LaunchScreen.storyboard */; };
 		E2D5EDD72BBA9489007CC59E /* WeatherDemoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDD62BBA9489007CC59E /* WeatherDemoAppTests.swift */; };
@@ -45,10 +50,15 @@
 		AF2183DCEB21AD1ADAA0CAE1 /* Pods-WeatherDemoApp-WeatherDemoAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherDemoApp-WeatherDemoAppUITests.release.xcconfig"; path = "Target Support Files/Pods-WeatherDemoApp-WeatherDemoAppUITests/Pods-WeatherDemoApp-WeatherDemoAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B927FC75C3F58DB0D2B5B34F /* Pods-WeatherDemoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherDemoAppTests.debug.xcconfig"; path = "Target Support Files/Pods-WeatherDemoAppTests/Pods-WeatherDemoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C50F02C54A0249ED58AF9E3F /* Pods_WeatherDemoApp_WeatherDemoAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeatherDemoApp_WeatherDemoAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24C0DF22BBBED3B004F1D56 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		E24C0E002BBBF3A2004F1D56 /* FontsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontsHandler.swift; sourceTree = "<group>"; };
+		E24C0E032BBBF4C6004F1D56 /* SFProText-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.otf"; sourceTree = "<group>"; };
+		E24C0E042BBBF4C6004F1D56 /* SFProText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.otf"; sourceTree = "<group>"; };
+		E24C0E082BBBF625004F1D56 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E2D5EDBC2BBA9486007CC59E /* WeatherDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2D5EDBF2BBA9486007CC59E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2D5EDC12BBA9486007CC59E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E2D5EDC32BBA9486007CC59E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E2D5EDC32BBA9486007CC59E /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		E2D5EDC82BBA9488007CC59E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E2D5EDCB2BBA9488007CC59E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2D5EDCD2BBA9488007CC59E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -112,6 +122,55 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E24C0DF02BBBEA69004F1D56 /* CitiesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E2D5EDC32BBA9486007CC59E /* CitiesViewController.swift */,
+			);
+			path = CitiesViewController;
+			sourceTree = "<group>";
+		};
+		E24C0DF12BBBED30004F1D56 /* Bases */ = {
+			isa = PBXGroup;
+			children = (
+				E24C0DF22BBBED3B004F1D56 /* BaseViewModel.swift */,
+			);
+			path = Bases;
+			sourceTree = "<group>";
+		};
+		E24C0DF42BBBF100004F1D56 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				E24C0E022BBBF4C6004F1D56 /* SF-Pro-Text */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		E24C0DFF2BBBF38D004F1D56 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				E24C0E002BBBF3A2004F1D56 /* FontsHandler.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		E24C0E022BBBF4C6004F1D56 /* SF-Pro-Text */ = {
+			isa = PBXGroup;
+			children = (
+				E24C0E032BBBF4C6004F1D56 /* SFProText-Regular.otf */,
+				E24C0E042BBBF4C6004F1D56 /* SFProText-Bold.otf */,
+			);
+			path = "SF-Pro-Text";
+			sourceTree = "<group>";
+		};
+		E24C0E072BBBF61C004F1D56 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E24C0E082BBBF625004F1D56 /* UIColor.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E2D5EDB32BBA9486007CC59E = {
 			isa = PBXGroup;
 			children = (
@@ -137,9 +196,13 @@
 		E2D5EDBE2BBA9486007CC59E /* WeatherDemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				E24C0E072BBBF61C004F1D56 /* Extensions */,
+				E24C0DFF2BBBF38D004F1D56 /* Helpers */,
+				E24C0DF42BBBF100004F1D56 /* Fonts */,
+				E24C0DF12BBBED30004F1D56 /* Bases */,
 				E2D5EDBF2BBA9486007CC59E /* AppDelegate.swift */,
 				E2D5EDC12BBA9486007CC59E /* SceneDelegate.swift */,
-				E2D5EDC32BBA9486007CC59E /* ViewController.swift */,
+				E24C0DF02BBBEA69004F1D56 /* CitiesViewController */,
 				E2D5EDC82BBA9488007CC59E /* Assets.xcassets */,
 				E2D5EDCA2BBA9488007CC59E /* LaunchScreen.storyboard */,
 				E2D5EDCD2BBA9488007CC59E /* Info.plist */,
@@ -275,6 +338,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2D5EDCC2BBA9488007CC59E /* LaunchScreen.storyboard in Resources */,
+				E24C0E052BBBF4C6004F1D56 /* SFProText-Regular.otf in Resources */,
+				E24C0E062BBBF4C6004F1D56 /* SFProText-Bold.otf in Resources */,
 				E2D5EDC92BBA9488007CC59E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,7 +486,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2D5EDC42BBA9486007CC59E /* ViewController.swift in Sources */,
+				E2D5EDC42BBA9486007CC59E /* CitiesViewController.swift in Sources */,
+				E24C0E092BBBF625004F1D56 /* UIColor.swift in Sources */,
+				E24C0E012BBBF3A2004F1D56 /* FontsHandler.swift in Sources */,
+				E24C0DF32BBBED3B004F1D56 /* BaseViewModel.swift in Sources */,
 				E2D5EDC02BBA9486007CC59E /* AppDelegate.swift in Sources */,
 				E2D5EDC22BBA9486007CC59E /* SceneDelegate.swift in Sources */,
 			);

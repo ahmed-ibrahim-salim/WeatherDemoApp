@@ -16,10 +16,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             self.window = window
-            let viewControlller = ViewController()
-            self.window?.rootViewController = viewControlller
+            
+            let citiesViewModel = CitiesViewModel()
+            let navController = UINavigationController()
+            let viewControlller = CitiesViewController(viewModel: citiesViewModel)
+            navController.setViewControllers([viewControlller], animated: false)
+            
+            self.window?.rootViewController = navController
             window.makeKeyAndVisible()
-
+            
         }
     }
 
