@@ -23,6 +23,13 @@ struct Colors {
         currentTheme == .light ? UIColor(hex: "3D4548") : UIColor(hex: "797F88")
     }()
     
+    static var cancelBtnTint: UIColor? = {
+        currentTheme == .light ? UIColor(hex: "007AFF") : UIColor(hex: "C53249")
+    }()
+    
+    
+    
+    // MARK: Home gradient
     static var pageGradientFirstColor: CGColor? = {
         currentTheme == .light ? UIColor.white.cgColor : UIColor(hex: "262627")?.cgColor
     }()

@@ -7,19 +7,13 @@
 
 import UIKit
 
-typealias VoidCallback = (() -> Void)
-
-class CitiesViewModel: BaseViewModel {
-    
-}
-
 class CitiesViewController: UITableViewController {
     
     private var viewModel: CitiesViewModel!
     private var gradientView: CAGradientLayer?
-
+    
     init(viewModel: CitiesViewModel) {
-        super.init(style: .plain)
+        super.init(style: .insetGrouped)
         self.viewModel = viewModel
     }
     
@@ -28,7 +22,7 @@ class CitiesViewController: UITableViewController {
     }
     
     // MARK: Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -41,6 +35,8 @@ class CitiesViewController: UITableViewController {
         addPageTitleLabelConstaints()
         addBtnViewConstaints()
         addBottomImageConstaints()
+        
+        setupTableView()
     }
     
     override func viewWillLayoutSubviews() {
@@ -50,6 +46,15 @@ class CitiesViewController: UITableViewController {
     }
     
     // MARK: View Configurators
+    private func setupTableView() {
+        tableView.rowHeight = 60
+//        tableView.estimatedRowHeight = 44
+        tableView.register(
+            CityTableCell.self,
+            forCellReuseIdentifier: CityTableCell.identifier
+        )
+        tableView.bounces = false
+    }
     private func addGradient() {
         let pageGradient = Colors.pageGradient
         
@@ -65,33 +70,9 @@ class CitiesViewController: UITableViewController {
     
     private func setupRightBtn() {
         let callback: VoidCallback = { [unowned self] in
-            // create the actual alert controller view that will be the pop-up
-            let alertController = UIAlertController(
-                title: "City",
-                message: "Enter city name",
-                preferredStyle: .alert
-            )
-
-            alertController.addTextField { textField in
-                // configure the properties of the text field
-                textField.placeholder = "Cairo"
-            }
-
-            // add the buttons/actions to the view controller
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            let saveAction = UIAlertAction(title: "Search", style: .default) { _ in
-
-                // this code runs when the user hits the "Search" button
-                let inputName = alertController.textFields?[0].text
-
-                print(inputName)
-
-            }
-
-            alertController.addAction(cancelAction)
-            alertController.addAction(saveAction)
-
-            present(alertController, animated: true, completion: nil)
+            let viewModel = SearchCityViewModel()
+            let viewC = SearchCityViewController(viewModel: viewModel)
+            present(viewC, animated: true, completion: nil)
         }
         
         let model = ReusableBtnModel(btnTappedAction: callback,
@@ -149,7 +130,48 @@ extension CitiesViewController {
             bottomImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             bottomImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             bottomImage.heightAnchor.constraint(equalToConstant: 200)
-
+            
         ])
     }
+}
+
+// MARK: Table
+extension CitiesViewController {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CityTableCell.identifier, for: indexPath) as? CityTableCell else {
+            return UITableViewCell()
+        }
+        
+        cell.pageTitleLbl.text = "London"
+
+        return cell
+        
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // to make spacing on top of each section
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(
+            frame: CGRect(
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 50
+            )
+        )
+        
+        return view
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+
 }

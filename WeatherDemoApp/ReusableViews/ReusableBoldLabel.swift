@@ -27,11 +27,19 @@ class ReusableBoldLabel: UILabel {
         textAlignment = .center
     }
     
-    func changeAlignment(_ alignment: NSTextAlignment) {
+    func setAlignment(_ alignment: NSTextAlignment) {
         textAlignment = alignment
     }
     
     func setTitle(_ title: String) {
         text = title
+    }
+    
+    func changeFont(_ font: UIFont) {
+        self.font = font
+    }
+    
+    func changeTextColor(_ color: UIColor) {
+        self.textColor = color
     }
 }
