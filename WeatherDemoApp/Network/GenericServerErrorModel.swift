@@ -17,6 +17,7 @@ struct GenericServerErrorModel: LocalizedError, Codable {
     
     init(weatherError: WeatherError) {
         self.weatherError = weatherError
+        self.message = weatherError.localizedDescription
     }
     
     // MARK: WeatherError
@@ -48,14 +49,13 @@ struct GenericServerErrorModel: LocalizedError, Codable {
 // MARK: decode Server Error
 extension GenericServerErrorModel {
     
-    static func decodeServerError(data: Data) throws -> GenericServerErrorModel{
+    static func decodeServerError(data: Data) throws -> GenericServerErrorModel {
         
         do {
             
             let responseError = try JSONDecoder.decodeFromData(GenericServerErrorModel.self, data: data)
-            let genericError = GenericServerErrorModel(weatherError: .server(description: responseError.localizedDescription))
-            
-            return genericError
+//            let newError = GenericServerErrorModel(weatherError: .server(description: responseError.message ?? ""))
+            return responseError
             
         } catch {
 
@@ -63,5 +63,3 @@ extension GenericServerErrorModel {
         }
     }
 }
-
-

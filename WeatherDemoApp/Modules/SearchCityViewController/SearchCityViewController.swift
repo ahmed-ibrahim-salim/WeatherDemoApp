@@ -141,7 +141,7 @@ extension SearchCityViewController {
         .store(in: &disposables)
         
         viewModel.error.sink { [unowned self] error in
-            showAlert(error.localizedDescription)
+            showAlert(error.message)
         }
         .store(in: &disposables)
         

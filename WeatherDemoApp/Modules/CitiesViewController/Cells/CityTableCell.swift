@@ -37,6 +37,8 @@ class CityTableCell: UITableViewCell {
         selectionStyle = .none
     }
     
+    // MARK: Set constaints
+
     private func setConstaints() {
         contentView.addSubview(pageTitleLbl)
         
