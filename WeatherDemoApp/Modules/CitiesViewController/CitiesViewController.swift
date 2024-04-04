@@ -26,7 +26,7 @@ class CitiesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-        view.backgroundColor = UIColor(hex: "D6D3DE")
+//        view.backgroundColor = UIColor(hex: "D6D3DE")
         
         setupRightBtn()
         setupPageTitleLbl()
@@ -70,7 +70,7 @@ class CitiesViewController: UITableViewController {
     
     private func setupRightBtn() {
         let callback: VoidCallback = { [unowned self] in
-            let viewModel = SearchCityViewModel()
+            let viewModel = SearchCityViewModel(weatherFetcher: WeatherFetcher())
             let viewC = SearchCityViewController(viewModel: viewModel)
             present(viewC, animated: true, completion: nil)
         }

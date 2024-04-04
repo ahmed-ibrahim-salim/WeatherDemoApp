@@ -6,8 +6,13 @@
 //
 
 import Foundation
+import Combine
+
+typealias VoidCallback = (() -> Void)
 
 class BaseViewModel {
+    var disposables = Set<AnyCancellable>()
+
     var showIndicator: VoidCallback!
     var hideIndicator: VoidCallback!
     
