@@ -8,10 +8,11 @@
 import Foundation
 import Combine
 
-class SearchCityViewModel: BaseViewModel, ObservableObject {
+class SearchCityViewModel: BaseViewModel {
     
-    @Published var city = CityWeatherInternal.makeDefaultObject()
-    
+    let city = PassthroughSubject<CityWeatherInternal, Never>()
+    let error = PassthroughSubject<WeatherError, Never>()
+
     private let weatherFetcher: WeatherFetchable
     
     init(weatherFetcher: WeatherFetchable) {
@@ -29,8 +30,8 @@ class SearchCityViewModel: BaseViewModel, ObservableObject {
             guard let self = self else { return }
               hideIndicator()
             switch value {
-            case .failure:
-                self.city = CityWeatherInternal.makeDefaultObject()
+            case let .failure(error):
+                self.error.send(error)
             case .finished:
               break
             }
@@ -38,8 +39,7 @@ class SearchCityViewModel: BaseViewModel, ObservableObject {
           receiveValue: { [weak self] cityWeatherInfo in
             guard let self = self else { return }
               hideIndicator()
-              self.city = cityWeatherInfo.getCityWeatherInternal()
-              print(self.city.temp)
+              self.city.send(cityWeatherInfo.getCityWeatherInternal())
         })
         .store(in: &disposables)
     }

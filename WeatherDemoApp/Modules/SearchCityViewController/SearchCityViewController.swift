@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 // Use cases
 // 1- new city, click search to call api, save result to realm, then dismiss and refresh home to get from realm
@@ -16,6 +17,7 @@ class SearchCityViewController: UIViewController {
     
     private var viewModel: SearchCityViewModel!
     private var gradientView: CAGradientLayer?
+    var disposables = Set<AnyCancellable>()
 
     init(viewModel: SearchCityViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -75,7 +77,8 @@ class SearchCityViewController: UIViewController {
     // MARK: startSendingText
     @objc
     func startSendingText() {
-        guard let searchText = searchBar.text else {return}
+        guard let searchText = searchBar.text, 
+            !searchText.isEmpty else {return}
         self.viewModel.fetchWeatherInfo(searchText)
         
     }
@@ -100,7 +103,6 @@ class SearchCityViewController: UIViewController {
 
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-//        searchBar.searchBarStyle = UISearchBar.Style.default
         searchBar.placeholder = " Search..."
         searchBar.backgroundImage = UIImage()
         searchBar.delegate = self
@@ -126,9 +128,23 @@ class SearchCityViewController: UIViewController {
     
 }
 
+// MARK: assignVMClosures
 extension SearchCityViewController {
+    
+    
     func assignViewModelClosures() {
         
+        viewModel.city.sink { value in
+            print(value)
+        }
+        .store(in: &disposables)
+        
+        viewModel.error.sink { [unowned self] error in
+            showAlert(error.localizedDescription)
+        }
+        .store(in: &disposables)
+        
+
         viewModel.showIndicator = { [unowned self] in
             showProgress()
         }
@@ -183,9 +199,9 @@ extension SearchCityViewController {
         ])
         
     }
-  
 
 }
+
 // MARK: Search Results Table
 extension SearchCityViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -12,7 +12,7 @@ source 'https://github.com/CocoaPods/Specs.git'
   pod 'SwiftLint'
   pod 'RealmSwift', '~>10'
   pod 'SVProgressHUD'
-
+  pod 'ReachabilitySwift'
 
 
   target 'WeatherDemoAppTests' do

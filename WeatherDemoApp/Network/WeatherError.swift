@@ -6,8 +6,21 @@
 //
 
 import Foundation
+import Alamofire
 
 enum WeatherError: Error {
-  case parsing(description: String)
-  case network(description: String)
+    case parsing(description: String)
+    case network(description: String)
+    case custom(description: String)
+
+    var localizedDescription: String {
+        switch self {
+        case .network(let value):   
+            return value
+        case .parsing(let value):   
+            return value
+        case .custom(let value):    
+            return value
+        }
+    }
 }

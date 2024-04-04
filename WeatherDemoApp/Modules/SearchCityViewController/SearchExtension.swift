@@ -15,7 +15,7 @@ extension SearchCityViewController: UISearchBarDelegate {
         let whiteSpaceChar = CharacterSet.whitespaces
 
         // allowing white space in between chars, but not at the begining
-        if let _ = text.rangeOfCharacter(from: whiteSpaceChar),
+        if text.rangeOfCharacter(from: whiteSpaceChar) != nil,
            let searchText = searchBar.text,
             searchText.isEmpty {
             return true
