@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct CityWeatherInternal {
+struct FormattedCityWeatherModel {
     let cityName, temp, humidity, windSpeed, description, icon: String
     
-    static func makeDefaultObject() -> CityWeatherInternal {
-        CityWeatherInternal(
+    /// null object pattern, to reduce null checks everywhere in the codebase
+    static func makeDefaultObject() -> FormattedCityWeatherModel {
+        FormattedCityWeatherModel(
             cityName: "",
             temp: "",
             humidity: "",

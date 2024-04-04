@@ -22,6 +22,7 @@ class ReusableButton: UIButton {
         setupViews()
     }
     
+    // MARK: setupViews
     private func setupViews() {
         backgroundColor = Colors.mainBtnBackgroundColor
         tintColor = Colors.mainBtnTintColor

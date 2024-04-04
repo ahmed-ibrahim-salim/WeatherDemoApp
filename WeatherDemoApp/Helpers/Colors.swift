@@ -11,6 +11,8 @@ struct Colors {
     
     static private let currentTheme = UITraitCollection.current.userInterfaceStyle
     
+    // MARK: Colors
+
     static var mainBtnBackgroundColor: UIColor? = {
         currentTheme == .light ? UIColor(hex: "2388C7") : UIColor(hex: "C53249")
     }()

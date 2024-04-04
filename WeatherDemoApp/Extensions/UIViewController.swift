@@ -8,9 +8,9 @@
 import UIKit
 import SVProgressHUD
 
-
 extension UIViewController {
     
+    // MARK: SVProgressHUD
     func showProgress() {
         SVProgressHUD.show()
     }
@@ -20,6 +20,7 @@ extension UIViewController {
         SVProgressHUD.dismiss()
     }
     
+    // MARK: Generic Alert
     /// Display an alert view if the function is not implemented
     func showAlert(title: String? = "Error", _ message: String?, selfDismissing: Bool = true, time: TimeInterval = 2){
         

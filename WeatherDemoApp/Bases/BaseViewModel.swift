@@ -10,8 +10,8 @@ import Combine
 
 typealias VoidCallback = (() -> Void)
 
+/// Base View Model to reduce duplication
 class BaseViewModel {
-    var disposables = Set<AnyCancellable>()
 
     var showIndicator: VoidCallback!
     var hideIndicator: VoidCallback!

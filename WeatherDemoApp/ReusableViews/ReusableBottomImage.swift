@@ -19,10 +19,14 @@ class ReusableBottomImage: UIImageView {
         setupViews()
     }
     
+    // MARK: Setup Views
     private func setupViews() {
         translatesAutoresizingMaskIntoConstraints = false
         let currentTheme = UITraitCollection.current.userInterfaceStyle
-        image = currentTheme == .light ? UIImage(named: "Background_light") : UIImage(named: "Background_Dark")
+        
+        image = currentTheme == .light
+        ? UIImage(named: "Background_light")
+        : UIImage(named: "Background_Dark")
     }
     
     

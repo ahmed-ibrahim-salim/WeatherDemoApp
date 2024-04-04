@@ -10,76 +10,126 @@ import Alamofire
 import Combine
 import Reachability
 
+typealias NetworkCompletion<T> = (Result<T, GenericServerErrorModel>) -> Void
+
 protocol WeatherFetchable {
-    func getWeatherInfo(forCity city: String) -> AnyPublisher<CityWeatherResponse, WeatherError>
+    func getWeatherInfo(forCity city: String,
+                        completionHandler: @escaping (Result<CityWeatherModel, GenericServerErrorModel>) -> ())
     
 }
 
-// MARK: - WeatherFetchable
+// MARK: - WeatherFetcher
+/// class responsible for requesting data from the server
 class WeatherFetcher: WeatherFetchable {
+    
+    /// check network status
     let reachability = try? Reachability()
 
-    
-    func getWeatherInfo(forCity city: String) -> AnyPublisher<CityWeatherResponse, WeatherError> {
-        return execute(with: makeWeatherInfoComponents(withCity: city))
+    /// get weather info for a city
+    func getWeatherInfo(forCity city: String,
+                        completionHandler: @escaping (Result<CityWeatherModel, GenericServerErrorModel>) -> ()){
+        
+        execute(with: makeWeatherInfoComponents(withCity: city),
+                CityWeatherModel.self) {
+            response in
+            completionHandler(response)
+        }
     }
     
-    private func execute<T>(
-        with components: URLComponents
-    ) -> AnyPublisher<T, WeatherError> where T: Decodable {
+    // MARK: - Execute requests
+    /// generic request to execute all get requests
+    private func execute<T:Codable>(
+        with components: URLComponents,
+        _ type: T.Type,
+        completionHandler: @escaping NetworkCompletion<T>) {
         
         // return with url error
         guard let url = components.url else {
-            let error = WeatherError.network(description: "Couldn't create URL")
-            return Fail(error: error)
-                .eraseToAnyPublisher()
+            let genericError = GenericServerErrorModel(weatherError: .custom(description: "Couldn't create URL"))
+            completionHandler(.failure(genericError))
+            return
         }
         
-        return AF.request(URLRequest(url: url))
-            .publishDecodable(type: T.self)
-            .value()
-            .mapError { [unowned self] error in
-                checkInternetConnection(error)
+        AF.request(url)
+            .responseDecodable(of: type){
+            response in
+                
+            self.processResponse(response: response, decodedTo: type){
+                result in
+                
+                completionHandler(result)
+
             }
-            .eraseToAnyPublisher()
-        
-    }
-    
-    private func checkInternetConnection(_ error: AFError) -> WeatherError{
-        // Check for internet connectivity
-        if let reachability = self.reachability,
-            reachability.connection != .unavailable {
-            // You have a valid network connection
-            return WeatherError.network(description: error.localizedDescription)
-
-        } else {
-            // No network connection
-            
-            return WeatherError.network(description: "Network connection appears to be offline")
-
         }
     }
 }
 
+// MARK: - Process response
 extension WeatherFetcher {
-    struct OpenWeatherAPI {
-        static let scheme = "https"
-        static let host = "api.openweathermap.org"
-        static let path = "/data/2.5"
-        static let key = "4c6eb36cdcfd3de4bddb06d5b9b4b760"
-    }
-    
-    func makeWeatherInfoComponents(withCity city: String) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = OpenWeatherAPI.scheme
-        components.host = OpenWeatherAPI.host
-        components.path = OpenWeatherAPI.path + "/weather"
+    /// process all kind of responses from the server including network connectivity, decoding and server errors.
+    func processResponse<T:Codable>(response: DataResponse<T, AFError>,
+                            decodedTo type: T.Type,
+                            completion: @escaping NetworkCompletion<T>) {
         
-        components.queryItems = [
-            URLQueryItem(name: "q", value: city),
-            URLQueryItem(name: "appid", value: OpenWeatherAPI.key)
-        ]
+        // MARK: Reachability
+
+        /// Check for internet connectivity
+        if let reachability = self.reachability,
+            reachability.connection != .unavailable {
+            /// You have a valid network connection
+        } else {
+            /// No network connection
+            let networkGeneric = GenericServerErrorModel(weatherError: .noInternetConnection(description: "No internet connection"))
+
+            completion(.failure(networkGeneric))
+        }
         
-        return components
+        // MARK: Success
+        switch response.result {
+        case .success:
+            guard let data = response.data else {
+                /// request is succes & server returned not data.
+                let networkGeneric = GenericServerErrorModel(weatherError: .server(description: "Server returned no data"))
+                completion(.failure(networkGeneric))
+                
+                return
+            }
+            
+            do {
+                /// decoding request data.
+                let data = try JSONDecoder.decodeFromData(type, data: data)
+               completion(.success(data))
+                
+            } catch {
+                print(type, String(describing: error))
+                
+                /// handling decoding errors
+                let networkGeneric = GenericServerErrorModel(weatherError: .parsing(description: error.localizedDescription))
+                completion(.failure(networkGeneric))
+            }
+        
+        // MARK: Failure
+        case .failure:
+            
+            if let _ = response.data {
+                
+                do{
+                    /// decoding request error (backend generic error respose).
+                    let error = try GenericServerErrorModel.decodeServerError(data: response.data ?? Data())
+                    completion(.failure(error))
+                    
+                } catch {
+                    /// handling backend error decoding
+                    let networkGeneric = GenericServerErrorModel(weatherError: .parsing(description: error.localizedDescription))
+                    completion(.failure(networkGeneric))
+                }
+                
+            } else {
+                /// request failed and server returned empty json
+                let networkGeneric = GenericServerErrorModel(weatherError: .server(description: "Something went wrong!"))
+                completion(.failure(networkGeneric))
+            }
+            
+        }
     }
 }

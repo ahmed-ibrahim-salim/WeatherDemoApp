@@ -19,6 +19,7 @@ class ReusableBoldLabel: UILabel {
         setupViews()
     }
     
+    // MARK: Setup Views
     private func setupViews() {
         translatesAutoresizingMaskIntoConstraints = false
         font = AppFonts.bold.size(20)
@@ -27,6 +28,7 @@ class ReusableBoldLabel: UILabel {
         textAlignment = .center
     }
     
+    // MARK: Setters
     func setAlignment(_ alignment: NSTextAlignment) {
         textAlignment = alignment
     }

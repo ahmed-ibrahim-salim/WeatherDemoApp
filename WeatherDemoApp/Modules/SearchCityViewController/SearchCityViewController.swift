@@ -8,9 +8,9 @@
 import UIKit
 import Combine
 
-// Use cases
-// 1- new city, click search to call api, save result to realm, then dismiss and refresh home to get from realm
-// 2- old city, shows results, choose one, push weather history
+//MARK: Use cases
+/// 1- new city, click search to call api, save result to realm, then dismiss and refresh home to get from realm
+/// 2- old city, show results, choose one, push weather history screen
 
 
 class SearchCityViewController: UIViewController {
@@ -28,6 +28,7 @@ class SearchCityViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         addGradient()
@@ -131,9 +132,9 @@ class SearchCityViewController: UIViewController {
 // MARK: assignVMClosures
 extension SearchCityViewController {
     
-    
     func assignViewModelClosures() {
         
+        /// listeners
         viewModel.city.sink { value in
             print(value)
         }
@@ -145,6 +146,7 @@ extension SearchCityViewController {
         .store(in: &disposables)
         
 
+        /// indicators
         viewModel.showIndicator = { [unowned self] in
             showProgress()
         }

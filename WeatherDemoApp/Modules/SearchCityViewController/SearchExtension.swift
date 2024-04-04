@@ -7,9 +7,9 @@
 
 import UIKit
 
-// MARK: SearchBar delegates
 extension SearchCityViewController: UISearchBarDelegate {
-    
+    // MARK: shouldChangeTextIn
+
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         let whiteSpaceChar = CharacterSet.whitespaces
@@ -46,6 +46,8 @@ extension SearchCityViewController: UISearchBarDelegate {
         }
 
     }
+
+    // MARK: SearchButtonClicked
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // dismiss keyboard & keep search text

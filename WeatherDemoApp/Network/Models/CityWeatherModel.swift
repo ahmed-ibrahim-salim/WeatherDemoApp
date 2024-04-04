@@ -7,22 +7,24 @@
 
 import Foundation
 
-// MARK: - CityWeather
-struct CityWeatherResponse: Codable {
+struct CityWeatherModel: Codable {
     let weather: [Weather]
     let main: Main
     let wind: Wind
     let sys: Sys
     let name: String
     
-    func getCityWeatherInternal() -> CityWeatherInternal {
+    // MARK: Formatted weather data
+    /// formatting weather data with a helper method
+    func getFormattedCityWeatherModel() -> FormattedCityWeatherModel {
+        
         let cityName = name + ", " + sys.country
         let weather: Weather = weather[0]
         let temp = "\(convertTemp(temp: main.temp, from: .kelvin, to: .celsius))"
         let windSpeed = "\(wind.speed) km/h"
         let humidity = "\(main.humidity)%"
         
-        return CityWeatherInternal(
+        return FormattedCityWeatherModel(
             cityName: cityName,
             temp: temp,
             humidity: humidity,
@@ -33,6 +35,8 @@ struct CityWeatherResponse: Codable {
         
     }
     
+    // MARK: Temp converter
+    /// convert temprature
     private func convertTemp(
         temp: Double,
         from inputTempType: UnitTemperature,

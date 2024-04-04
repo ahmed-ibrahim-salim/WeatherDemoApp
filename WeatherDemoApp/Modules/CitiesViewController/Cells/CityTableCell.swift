@@ -8,9 +8,11 @@
 import UIKit
 
 class CityTableCell: UITableViewCell {
+    
     var pageTitleLbl = ReusableBoldLabel()
     static let identifier = "CityTableCell"
     
+    // MARK: initialiser
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -19,6 +21,11 @@ class CityTableCell: UITableViewCell {
         
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: Set view props
     private func setViewSpecs() {
         pageTitleLbl.setAlignment(.natural)
         accessoryType = .disclosureIndicator
@@ -40,7 +47,4 @@ class CityTableCell: UITableViewCell {
         ])
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }

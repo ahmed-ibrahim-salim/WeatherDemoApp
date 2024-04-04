@@ -10,38 +10,37 @@ import Combine
 
 class SearchCityViewModel: BaseViewModel {
     
-    let city = PassthroughSubject<CityWeatherInternal, Never>()
-    let error = PassthroughSubject<WeatherError, Never>()
-
+    /// output
+    let city = PassthroughSubject<FormattedCityWeatherModel, Never>()
+    let error = PassthroughSubject<GenericServerErrorModel, Never>()
+    
+    /// service(s)
     private let weatherFetcher: WeatherFetchable
     
+    /// injecting dependencies
     init(weatherFetcher: WeatherFetchable) {
         self.weatherFetcher = weatherFetcher
-        super.init()
+    }
+    
+}
+
+// MARK: Api calls
+extension SearchCityViewModel {
+    func fetchWeatherInfo(_ city: String) {
+        showIndicator()
+        
+        weatherFetcher.getWeatherInfo(forCity: city) { [unowned self] result in
+            hideIndicator()
+            
+            switch result {
+            case .success(let cityWeatherInfo):
+                
+                self.city.send(cityWeatherInfo.getFormattedCityWeatherModel())
+            case.failure(let err):
+                self.error.send(err)
+            }
+            
+        }
         
     }
-    
-    func fetchWeatherInfo(_ city: String) {
-     showIndicator()
-      weatherFetcher.getWeatherInfo(forCity: city)
-        .receive(on: DispatchQueue.main)
-        .sink(
-          receiveCompletion: { [weak self] value in
-            guard let self = self else { return }
-              hideIndicator()
-            switch value {
-            case let .failure(error):
-                self.error.send(error)
-            case .finished:
-              break
-            }
-          },
-          receiveValue: { [weak self] cityWeatherInfo in
-            guard let self = self else { return }
-              hideIndicator()
-              self.city.send(cityWeatherInfo.getCityWeatherInternal())
-        })
-        .store(in: &disposables)
-    }
-    
 }

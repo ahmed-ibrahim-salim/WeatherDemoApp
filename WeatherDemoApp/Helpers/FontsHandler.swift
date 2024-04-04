@@ -12,6 +12,8 @@ enum AppFonts: String {
     case bold = "Bold"
     case regular = "Regular"
     
+    // MARK: Private
+
     private var fullFontName: String {
         let fontName = "SFProText"
         return rawValue.isEmpty ? fontName : (fontName + "-" + rawValue)

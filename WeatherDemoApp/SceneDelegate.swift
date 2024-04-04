@@ -17,12 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             self.window = window
             
+            /// replace value with .dark or .light to change theme color
             window.overrideUserInterfaceStyle = .dark
 
-            
             let citiesViewModel = CitiesViewModel()
-            let navController = UINavigationController()
             let viewControlller = CitiesViewController(viewModel: citiesViewModel)
+            
+            let navController = UINavigationController()
             navController.setViewControllers([viewControlller], animated: false)
             
             self.window?.rootViewController = navController

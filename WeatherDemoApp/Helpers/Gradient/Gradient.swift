@@ -18,6 +18,7 @@ public enum CAGradientPoint {
     case centerRight
     case bottomRight
     
+    // MARK: Point
     public var point: CGPoint {
         switch self {
         case .topLeft:
