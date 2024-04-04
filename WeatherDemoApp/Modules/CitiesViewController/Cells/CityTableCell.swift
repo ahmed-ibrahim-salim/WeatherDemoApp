@@ -28,10 +28,10 @@ class CityTableCell: UITableViewCell {
     // MARK: Set view props
     private func setViewSpecs() {
         pageTitleLbl.setAlignment(.natural)
-        accessoryType = .disclosureIndicator
-        accessoryView = UIImageView(
-            image: UIImage(systemName: "chevron.right")
-        )
+        accessoryType = .detailDisclosureButton
+//        accessoryView = UIImageView(
+//            image: UIImage(systemName: "chevron.right")
+//        )
         tintColor = Colors.mainBtnBackgroundColor
         backgroundColor = .clear
         selectionStyle = .none

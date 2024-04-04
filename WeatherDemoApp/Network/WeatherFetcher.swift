@@ -7,7 +7,6 @@
 
 import Foundation
 import Alamofire
-import Combine
 import Reachability
 
 typealias NetworkCompletion<T> = (Result<T, GenericServerErrorModel>) -> Void
