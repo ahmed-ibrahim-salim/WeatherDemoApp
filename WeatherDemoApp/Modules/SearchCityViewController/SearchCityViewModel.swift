@@ -58,6 +58,7 @@ class SearchCityViewModel: BaseViewModel {
     }
 }
 
+// MARK: Searching
 extension SearchCityViewModel {
     func startSearching(_ searchText: String?) {
         guard let searchText = searchText else {return}
@@ -97,7 +98,7 @@ extension SearchCityViewModel {
         cities.count
     }
     
-    private func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
+    func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
         cities[indexPath.row]
     }
 }

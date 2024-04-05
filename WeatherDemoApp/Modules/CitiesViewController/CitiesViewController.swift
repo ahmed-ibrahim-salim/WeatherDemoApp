@@ -10,13 +10,13 @@ import Combine
 
 class CitiesViewController: UITableViewController {
     
-    private var viewModel: CitiesViewModel!
+    private let viewModel: CitiesViewModel!
     private var gradientView: CAGradientLayer?
     private var disposables = Set<AnyCancellable>()
 
     init(viewModel: CitiesViewModel) {
-        super.init(style: .insetGrouped)
         self.viewModel = viewModel
+        super.init(style: .insetGrouped)
     }
     
     required init?(coder: NSCoder) {
@@ -75,15 +75,35 @@ class CitiesViewController: UITableViewController {
         pageTitleLbl.setTitle("Cities")
     }
     
+    // MARK: Navigation Methods
+    private func presentWeatherDetailScreen(_ cityWeatherInfo: CityRealmObject) {
+        let detailVC = WeatherInfoDetailVC(cityWeatherInfo: cityWeatherInfo)
+        present(detailVC, animated: true, completion: nil)
+    }
+    
     private func setupRightBtn() {
-        let callback: VoidCallback = { [unowned self] in
+        /// Action
+        let addBtnAction: VoidCallback = { [unowned self] in
+            
             let viewModel = SearchCityViewModel(weatherFetcher: WeatherFetcher(),
                                                 localStorageHelper: LocalStorageHelper.getInstance())
-            let viewC = SearchCityViewController(viewModel: viewModel)
+
+            let didSelectCityCompletion: ((CityRealmObject) -> Void) = { [unowned self] cityWeatherInfo in
+                
+                /// selected city ? dismiss search screen then present weather details screen
+                dismiss(animated: true)
+                
+                presentWeatherDetailScreen(cityWeatherInfo)
+                
+            }
+            
+            /// present search screen
+            let viewC = SearchCityViewController(viewModel: viewModel,
+                                                 openCityWeatherInfo: didSelectCityCompletion)
             present(viewC, animated: true, completion: nil)
         }
         
-        let model = ReusableBtnModel(btnTappedAction: callback,
+        let model = ReusableBtnModel(btnTappedAction: addBtnAction,
                                      btnImage: UIImage(systemName: "plus"))
         rightBtn.configureBtnWith(model)
     }
@@ -177,7 +197,8 @@ extension CitiesViewController {
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-
+        let cityWeatherInfo = viewModel.getCityFor(indexPath)
+        presentWeatherDetailScreen(cityWeatherInfo)
     }
     
     // to make spacing on top of each section

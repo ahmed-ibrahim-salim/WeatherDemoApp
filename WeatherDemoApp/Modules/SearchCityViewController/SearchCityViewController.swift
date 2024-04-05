@@ -8,22 +8,20 @@
 import UIKit
 import Combine
 
-// MARK: Use cases
-/// 1- new city, click search to call api, save result to realm, then dismiss and refresh home to get from realm
-/// 2- old city, show results, choose one, push weather history screen
-
-/// notes:
-/// saving dublicate city name.
 
 class SearchCityViewController: UIViewController {
     
-    private var viewModel: SearchCityViewModel!
+    private let viewModel: SearchCityViewModel!
+    private let openCityWeatherInfo: ((CityRealmObject) -> Void)
     private var gradientView: CAGradientLayer?
     private var disposables = Set<AnyCancellable>()
 
-    init(viewModel: SearchCityViewModel) {
-        super.init(nibName: nil, bundle: nil)
+    init(viewModel: SearchCityViewModel,
+         openCityWeatherInfo: @escaping ((CityRealmObject) -> Void)) {
+
         self.viewModel = viewModel
+        self.openCityWeatherInfo = openCityWeatherInfo
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -223,7 +221,9 @@ extension SearchCityViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-
+        let cityWeatherInfo = viewModel.getCityFor(indexPath)
+        
+        openCityWeatherInfo(cityWeatherInfo)
     }
     
 }

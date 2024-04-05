@@ -64,7 +64,7 @@ extension CitiesViewModel {
         cities.count
     }
     
-    private func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
+    func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
         cities[indexPath.row]
     }
 }
