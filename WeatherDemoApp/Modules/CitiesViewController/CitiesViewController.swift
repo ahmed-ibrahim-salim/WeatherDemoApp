@@ -76,8 +76,8 @@ class CitiesViewController: UITableViewController {
     
     // MARK: Navigation Methods
     private func presentWeatherDetailScreen(_ cityWeatherInfo: CityRealmObject) {
-        let detailVC = WeatherInfoDetailVC(cityWeatherInfo: cityWeatherInfo)
-        present(detailVC, animated: true, completion: nil)
+        let detailVC = CityWeatherEntriesVC(cityWeatherInfo: cityWeatherInfo)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     private func setupRightBtn() {

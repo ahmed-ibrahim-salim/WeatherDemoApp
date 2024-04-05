@@ -1,22 +1,21 @@
 //
-//  WeatherInfoDetailVC.swift
+//  CityWeatherEntriesVC.swift
 //  WeatherDemoApp
 //
 //  Created by ahmed on 05/04/2024.
 //
 
+
 import UIKit
 
-class WeatherInfoDetailVC: UIViewController {
+class CityWeatherEntriesVC: UIViewController {
     
     let cityWeatherInfo: CityRealmObject
-    
     private var gradientView: CAGradientLayer?
     
     init(cityWeatherInfo: CityRealmObject) {
         self.cityWeatherInfo = cityWeatherInfo
         super.init(nibName: nil, bundle: nil)
-
     }
     
     required init?(coder: NSCoder) {
@@ -30,11 +29,10 @@ class WeatherInfoDetailVC: UIViewController {
         addBottomImageConstaints()
         addPageTitleLabelConstaints()
         addBtnViewConstaints()
-        addbottomTimeLblConstaints()
         
-        setupBottomTimeLbl()
         setupPageTitleLbl()
         setupLeftBtn()
+        addSearchResultsTableConstaints()
     }
     
     override func viewWillLayoutSubviews() {
@@ -58,7 +56,7 @@ class WeatherInfoDetailVC: UIViewController {
         
         /// Action
         let addBtnAction: VoidCallback = { [unowned self] in
-            dismiss(animated: true)
+            navigationController?.popViewController(animated: true)
         }
         
         let model = ReusableBtnModel(btnTappedAction: addBtnAction,
@@ -66,19 +64,30 @@ class WeatherInfoDetailVC: UIViewController {
         leftBtn.configureBtnWith(model)
     }
     
-    private func setupBottomTimeLbl() {
-        let timeText = "Weather information for London received on \n \(cityWeatherInfo.cityName)"
-        bottomTimeLbl.setTitle(timeText)
-        bottomTimeLbl.changeFont(AppFonts.regular.size(12))
-    }
+   
     private func setupPageTitleLbl() {
-        pageTitleLbl.setTitle(cityWeatherInfo.cityName)
+        let titleTxt = "\(cityWeatherInfo.cityName) \n Historical"
+        pageTitleLbl.setTitle(titleTxt)
     }
     
     // MARK: SubViews
     private lazy var pageTitleLbl = ReusableBoldLabel()
-    private lazy var bottomTimeLbl = ReusableBoldLabel()
     private lazy var leftBtn = ReusableButton()
+    private lazy var historicalResultsTable: UITableView! = {
+        let myTableView = UITableView()
+        myTableView.backgroundColor = .clear
+        myTableView.translatesAutoresizingMaskIntoConstraints = false
+        myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
+        myTableView.dataSource = self
+        myTableView.delegate = self
+        myTableView.rowHeight = 60
+        myTableView.register(
+            CityTableCell.self,
+            forCellReuseIdentifier: CityTableCell.identifier
+        )
+       
+        return myTableView
+    }()
     private lazy var bottomImage = ReusableBottomImage(
         frame: CGRect(
             x: 0,
@@ -91,19 +100,19 @@ class WeatherInfoDetailVC: UIViewController {
 
 // MARK: Constraints
 
-extension WeatherInfoDetailVC {
+extension CityWeatherEntriesVC {
     
     private func addBtnViewConstaints() {
         
         view.addSubview(leftBtn)
         NSLayoutConstraint.activate(
             [
-                leftBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: -10),
+                leftBtn.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
                 leftBtn.leadingAnchor.constraint(
                     equalTo: view.safeAreaLayoutGuide.leadingAnchor,
                     constant: -10
                 ),
-                leftBtn.heightAnchor.constraint(equalToConstant: 60),
+                leftBtn.heightAnchor.constraint(equalToConstant: 50),
                 leftBtn.widthAnchor.constraint(equalToConstant: 80)
             ]
         )
@@ -113,17 +122,8 @@ extension WeatherInfoDetailVC {
         
         view.addSubview(pageTitleLbl)
         NSLayoutConstraint.activate([
-            pageTitleLbl.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            pageTitleLbl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             pageTitleLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
-        ])
-    }
-    
-    private func addbottomTimeLblConstaints() {
-        
-        view.addSubview(bottomTimeLbl)
-        NSLayoutConstraint.activate([
-            bottomTimeLbl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40),
-            bottomTimeLbl.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
         ])
     }
     
@@ -138,4 +138,55 @@ extension WeatherInfoDetailVC {
             
         ])
     }
+    private func addSearchResultsTableConstaints() {
+        view.addSubview(historicalResultsTable)
+
+        NSLayoutConstraint.activate([
+            historicalResultsTable.topAnchor.constraint(equalTo: leftBtn.bottomAnchor, constant: 40),
+            historicalResultsTable.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            historicalResultsTable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            historicalResultsTable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
+        ])
+        
+    }
+}
+
+extension CityWeatherEntriesVC {
+    // MARK: Table Datasource
+    func getHistorygetDateTimeFormattedFor(_ indexPath: IndexPath) -> String {
+        getHistoryEntityFor(indexPath).getDateTimeFormatted()
+    }
+    
+    func getHistoryEntitiesCount() -> Int {
+        cityWeatherInfo.weatherInfoList.count
+    }
+    
+    func getHistoryEntityFor(_ indexPath: IndexPath) -> FormattedCityWeatherModel {
+        cityWeatherInfo.weatherInfoList[indexPath.row]
+    }
+}
+
+// MARK: Historical Table
+extension CityWeatherEntriesVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        getHistoryEntitiesCount()
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CityTableCell.identifier, for: indexPath) as? CityTableCell else {
+            return UITableViewCell()
+        }
+        
+        cell.pageTitleLbl.text = getHistorygetDateTimeFormattedFor(indexPath)
+
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        let historyEntityFor = getHistoryEntityFor(indexPath)
+        
+//        openCityWeatherInfo(cityWeatherInfo)
+    }
+    
 }

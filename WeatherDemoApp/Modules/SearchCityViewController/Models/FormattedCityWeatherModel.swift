@@ -47,7 +47,7 @@ class FormattedCityWeatherModel: Object {
         )
     }
     
-    func getDateTimeFormatted() -> DateTimeFormatted {
+    func getDateTimeFormatted() -> String {
 
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy.MM.dd"
@@ -56,15 +56,15 @@ class FormattedCityWeatherModel: Object {
         formatter.dateFormat = "HH:mm a"
         let formattedTime = formatter.string(from: dateTime)
         
-        return DateTimeFormatted(date: formattedDate, time: formattedTime)
+        return "\(formattedDate) - \(formattedTime)"
 
     }
 }
 
-struct DateTimeFormatted {
-    let date, time: String
-    
-    func getFormateedDateTime() -> String {
-        "\(date) - \(time)"
-    }
-}
+//struct DateTimeFormatted {
+//    let date, time: String
+//    
+//    func getFormateedDateTime() -> String {
+//        "\(date) - \(time)"
+//    }
+//}
