@@ -37,6 +37,8 @@ class CitiesViewController: UITableViewController {
         addBottomImageConstaints()
         
         setupTableView()
+        
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path())
     }
     
     override func viewWillLayoutSubviews() {
@@ -70,7 +72,8 @@ class CitiesViewController: UITableViewController {
     
     private func setupRightBtn() {
         let callback: VoidCallback = { [unowned self] in
-            let viewModel = SearchCityViewModel(weatherFetcher: WeatherFetcher())
+            let viewModel = SearchCityViewModel(weatherFetcher: WeatherFetcher(),
+                                                localStorageHelper: LocalStorageHelper.getInstance())
             let viewC = SearchCityViewController(viewModel: viewModel)
             present(viewC, animated: true, completion: nil)
         }

@@ -16,10 +16,13 @@ class SearchCityViewModel: BaseViewModel {
     
     /// service(s)
     private let weatherFetcher: WeatherFetchable
+    private let localStorageHelper: LocalStorageHelper
     
     /// injecting dependencies
-    init(weatherFetcher: WeatherFetchable) {
+    init(weatherFetcher: WeatherFetchable,
+         localStorageHelper: LocalStorageHelper) {
         self.weatherFetcher = weatherFetcher
+        self.localStorageHelper = localStorageHelper
     }
     
 }
@@ -34,8 +37,11 @@ extension SearchCityViewModel {
             
             switch result {
             case .success(let cityWeatherInfo):
+                let city = cityWeatherInfo.getFormattedCityWeatherModel()
+                self.city.send(city)
                 
-                self.city.send(cityWeatherInfo.getFormattedCityWeatherModel())
+                /// add to DB
+                self.localStorageHelper.addCityWeatherInfoToRealm(weatherInfo: city)
             case.failure(let err):
                 self.error.send(err)
             }

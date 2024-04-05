@@ -8,10 +8,12 @@
 import UIKit
 import Combine
 
-//MARK: Use cases
+// MARK: Use cases
 /// 1- new city, click search to call api, save result to realm, then dismiss and refresh home to get from realm
 /// 2- old city, show results, choose one, push weather history screen
 
+/// notes:
+/// saving dublicate city name.
 
 class SearchCityViewController: UIViewController {
     
