@@ -55,7 +55,6 @@ class CitiesViewController: UITableViewController {
     // MARK: View Configurators
     private func setupTableView() {
         tableView.rowHeight = 60
-//        tableView.estimatedRowHeight = 44
         tableView.register(
             CityTableCell.self,
             forCellReuseIdentifier: CityTableCell.identifier

@@ -10,7 +10,6 @@ import UIKit
 class ReusableButton: UIButton {
     
     var btnTappedAction: VoidCallback?
-    var btnImage: UIImage?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,7 +26,6 @@ class ReusableButton: UIButton {
         backgroundColor = Colors.mainBtnBackgroundColor
         tintColor = Colors.mainBtnTintColor
         
-        setImage(UIImage(systemName: "plus"), for: .normal)
         translatesAutoresizingMaskIntoConstraints = false
         layer.cornerRadius = 20
         layer.shadowColor = UIColor.black.cgColor
@@ -48,8 +46,12 @@ class ReusableButton: UIButton {
     }
     
     func configureBtnWith(_ model: ReusableBtnModel) {
-        btnImage = model.btnImage
+        setImage(model.btnImage, for: .normal)
         btnTappedAction = model.btnTappedAction
+    }
+    
+    func setCornerRadius(_ radius: CGFloat) {
+        layer.cornerRadius = radius
     }
 }
 

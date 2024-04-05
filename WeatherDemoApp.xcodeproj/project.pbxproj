@@ -271,9 +271,9 @@
 		E2839EDC2BBE03E7003DC592 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E293AEBE2BC09ADA003B1FF8 /* WeatherInfoDetailVC */,
 				E24C0DF02BBBEA69004F1D56 /* CitiesViewController */,
 				E2839EDD2BBE03FB003DC592 /* SearchCityViewController */,
+				E293AEBE2BC09ADA003B1FF8 /* WeatherInfoDetailVC */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
