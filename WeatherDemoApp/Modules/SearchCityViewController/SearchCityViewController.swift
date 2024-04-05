@@ -208,7 +208,7 @@ extension SearchCityViewController {
 // MARK: Search Results Table
 extension SearchCityViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.cities.count
+        viewModel.getCitiesCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -216,7 +216,8 @@ extension SearchCityViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        cell.pageTitleLbl.text = viewModel.cities[indexPath.row].cityName
+        cell.pageTitleLbl.text = viewModel.getCityNameFor(indexPath)
+
         return cell
         
     }

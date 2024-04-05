@@ -45,7 +45,7 @@ class SearchCityViewModel: BaseViewModel {
         self.citiesObservervable = LocalStorageHelper.getCities()
         self.cities = LocalStorageHelper.getCities()
         
-        notificationToken = citiesObservervable.observe { [unowned self] (changes: RealmCollectionChange) in
+        notificationToken = citiesObservervable.observe { [unowned self] changes in
             
             switch changes {
             case .initial, .update:
@@ -61,7 +61,7 @@ class SearchCityViewModel: BaseViewModel {
 extension SearchCityViewModel {
     func startSearching(_ searchText: String?) {
         guard let searchText = searchText else {return}
-    
+        
         /// empt string ? then get all cities
         if searchText.isEmpty {
             cities = LocalStorageHelper.getCities()
@@ -84,6 +84,21 @@ extension SearchCityViewModel {
               !searchText.isEmpty else {return}
         // api
         fetchWeatherInfo(searchText)
+    }
+}
+
+extension SearchCityViewModel {
+    // MARK: Table Datasource
+    func getCityNameFor(_ indexPath: IndexPath) -> String {
+        getCityFor(indexPath).cityName
+    }
+    
+    func getCitiesCount() -> Int {
+        cities.count
+    }
+    
+    private func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
+        cities[indexPath.row]
     }
 }
 

@@ -13,7 +13,7 @@ class CitiesViewModel: BaseViewModel {
     
     /// outputs
     let error = PassthroughSubject<GenericServerErrorModel, Never>()
-    var cities: Results<CityRealmObject>!
+    private var cities: Results<CityRealmObject>!
 
     /// callbacks
     var reloadTableView: VoidCallback!
@@ -51,5 +51,20 @@ class CitiesViewModel: BaseViewModel {
                 self.error.send(weatherError)            }
         }
     }
+   
+}
+
+extension CitiesViewModel {
+    // MARK: Table Datasource
+    func getCityNameFor(_ indexPath: IndexPath) -> String {
+        getCityFor(indexPath).cityName
+    }
     
+    func getCitiesCount() -> Int {
+        cities.count
+    }
+    
+    private func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
+        cities[indexPath.row]
+    }
 }

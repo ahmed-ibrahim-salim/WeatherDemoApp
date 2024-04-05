@@ -42,7 +42,8 @@ class CitiesViewController: UITableViewController {
         
         assignViewModelClosures()
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path())
+        /// watch RealmDB on Simulator
+        /// print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path())
     }
     
     override func viewWillLayoutSubviews() {
@@ -161,7 +162,7 @@ extension CitiesViewController {
 extension CitiesViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.cities.count
+        viewModel.getCitiesCount()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -169,7 +170,7 @@ extension CitiesViewController {
             return UITableViewCell()
         }
         
-        cell.pageTitleLbl.text = viewModel.cities[indexPath.row].cityName
+        cell.pageTitleLbl.text = viewModel.getCityNameFor(indexPath)
 
         return cell
         
