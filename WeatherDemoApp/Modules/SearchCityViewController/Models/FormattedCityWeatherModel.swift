@@ -59,12 +59,8 @@ class FormattedCityWeatherModel: Object {
         return "\(formattedDate) - \(formattedTime)"
 
     }
+    
+    func getWeatherDescAndTemp() -> String {
+        "\(desc), \(temp)"
+    }
 }
-
-//struct DateTimeFormatted {
-//    let date, time: String
-//    
-//    func getFormateedDateTime() -> String {
-//        "\(date) - \(time)"
-//    }
-//}

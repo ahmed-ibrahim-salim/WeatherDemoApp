@@ -9,11 +9,11 @@ import UIKit
 
 class WeatherInfoDetailVC: UIViewController {
     
-    let cityWeatherInfo: CityRealmObject
+    let cityWeatherInfo: FormattedCityWeatherModel
     
     private var gradientView: CAGradientLayer?
     
-    init(cityWeatherInfo: CityRealmObject) {
+    init(cityWeatherInfo: FormattedCityWeatherModel) {
         self.cityWeatherInfo = cityWeatherInfo
         super.init(nibName: nil, bundle: nil)
 
@@ -67,7 +67,7 @@ class WeatherInfoDetailVC: UIViewController {
     }
     
     private func setupBottomTimeLbl() {
-        let timeText = "Weather information for London received on \n \(cityWeatherInfo.cityName)"
+        let timeText = "Weather information for London received on \n \(cityWeatherInfo.getDateTimeFormatted())"
         bottomTimeLbl.setTitle(timeText)
         bottomTimeLbl.changeFont(AppFonts.regular.size(12))
     }

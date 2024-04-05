@@ -311,9 +311,17 @@
 		E293AEC12BC0A62D003B1FF8 /* CityWeatherEntriesVC */ = {
 			isa = PBXGroup;
 			children = (
+				E293AEC42BC0AA8D003B1FF8 /* Cell */,
 				E293AEC22BC0A63D003B1FF8 /* CityWeatherEntriesVC.swift */,
 			);
 			path = CityWeatherEntriesVC;
+			sourceTree = "<group>";
+		};
+		E293AEC42BC0AA8D003B1FF8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		E2A943812BBFDCC800102753 /* LocalStorage */ = {

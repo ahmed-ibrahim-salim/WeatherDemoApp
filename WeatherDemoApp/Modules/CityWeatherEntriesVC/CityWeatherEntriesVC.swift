@@ -153,8 +153,15 @@ extension CityWeatherEntriesVC {
 
 extension CityWeatherEntriesVC {
     // MARK: Table Datasource
-    func getHistorygetDateTimeFormattedFor(_ indexPath: IndexPath) -> String {
-        getHistoryEntityFor(indexPath).getDateTimeFormatted()
+    func getCellDataFormattedFor(_ indexPath: IndexPath) -> CityTableCell.CellModel {
+        let primary = getHistoryEntityFor(indexPath).getDateTimeFormatted()
+        
+        let secondary = getHistoryEntityFor(indexPath).getWeatherDescAndTemp()
+        
+        return CityTableCell.CellModel(
+            primaryText: primary,
+            secondaryText: secondary
+        )
     }
     
     func getHistoryEntitiesCount() -> Int {
@@ -177,16 +184,23 @@ extension CityWeatherEntriesVC: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        cell.pageTitleLbl.text = getHistorygetDateTimeFormattedFor(indexPath)
+        let primaryFont = AppFonts.bold.size(12)
+        let secondaryFont = AppFonts.regular.size(17)
+        cell.configWith(
+            getCellDataFormattedFor(indexPath),
+            primaryFont,
+            secondaryFont
+        )
 
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let historyEntityFor = getHistoryEntityFor(indexPath)
-        
-//        openCityWeatherInfo(cityWeatherInfo)
+        let historyEntityForCity = getHistoryEntityFor(indexPath)
+
+        let weatherInfoDetailVC = WeatherInfoDetailVC(cityWeatherInfo: historyEntityForCity)
+        present(weatherInfoDetailVC, animated: true)
     }
     
 }
