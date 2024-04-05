@@ -12,7 +12,6 @@ import RealmSwift
 class SearchCityViewModel: BaseViewModel {
     
     /// output
-//    private let city = PassthroughSubject<FormattedCityWeatherModel, Never>()
     let error = PassthroughSubject<GenericServerErrorModel, Never>()
     private var notificationToken: NotificationToken!
     var cities: Results<CityRealmObject>!
@@ -24,7 +23,7 @@ class SearchCityViewModel: BaseViewModel {
     private let weatherFetcher: WeatherFetchable
     private let localStorageHelper: LocalStorageHelper
     private var citiesObservervable: Results<CityRealmObject>!
-
+    
     /// injecting dependencies
     init(weatherFetcher: WeatherFetchable,
          localStorageHelper: LocalStorageHelper) {
@@ -32,9 +31,9 @@ class SearchCityViewModel: BaseViewModel {
         self.localStorageHelper = localStorageHelper
         
         super.init()
-
+        
         self.startObservingCities()
-
+        
     }
     
     deinit {
@@ -45,7 +44,7 @@ class SearchCityViewModel: BaseViewModel {
     private func startObservingCities() {
         self.citiesObservervable = LocalStorageHelper.getCities()
         self.cities = LocalStorageHelper.getCities()
-
+        
         notificationToken = citiesObservervable.observe { [unowned self] (changes: RealmCollectionChange) in
             
             switch changes {
@@ -59,9 +58,39 @@ class SearchCityViewModel: BaseViewModel {
     }
 }
 
+extension SearchCityViewModel {
+    func startSearching(_ searchText: String?) {
+        guard let searchText = searchText else {return}
+    
+        /// empt string ? then get all cities
+        if searchText.isEmpty {
+            cities = LocalStorageHelper.getCities()
+            reloadTableView()
+            return
+        }
+        
+        /// has cities ? then filter with name
+        let filteredCities = LocalStorageHelper.getCities().where {
+            $0.cityName.contains(searchText, options: [])
+        }
+        
+        cities = filteredCities
+        reloadTableView()
+        
+    }
+    
+    func clickedSearchBtn(_ searchText: String?) {
+        guard let searchText = searchText,
+              !searchText.isEmpty else {return}
+        // api
+        fetchWeatherInfo(searchText)
+    }
+}
+
+
 // MARK: Api calls
 extension SearchCityViewModel {
-    func fetchWeatherInfo(_ city: String) {
+    private func fetchWeatherInfo(_ city: String) {
         showIndicator()
         
         weatherFetcher.getWeatherInfo(forCity: city) { [unowned self] result in

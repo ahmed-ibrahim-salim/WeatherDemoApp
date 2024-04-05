@@ -8,8 +8,8 @@
 import UIKit
 
 extension SearchCityViewController: UISearchBarDelegate {
-    // MARK: shouldChangeTextIn
 
+    // MARK: shouldChangeTextIn
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         let whiteSpaceChar = CharacterSet.whitespaces
@@ -40,11 +40,7 @@ extension SearchCityViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
 
-        // when search text is empty
-        if searchText.isEmpty {
-            self.perform(#selector(startSendingText))
-        }
-
+        self.perform(#selector(textDidChange))
     }
 
     // MARK: SearchButtonClicked
@@ -52,7 +48,7 @@ extension SearchCityViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // dismiss keyboard & keep search text
         // sending search text when clicked search
-        self.perform(#selector(startSendingText))
+        self.perform(#selector(clickedSearchBtn))
         
         searchBar.resignFirstResponder()
         

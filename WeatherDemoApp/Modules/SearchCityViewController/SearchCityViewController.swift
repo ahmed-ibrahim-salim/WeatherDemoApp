@@ -79,13 +79,14 @@ class SearchCityViewController: UIViewController {
     
     // MARK: startSendingText
     @objc
-    func startSendingText() {
-        guard let searchText = searchBar.text, 
-            !searchText.isEmpty else {return}
-        self.viewModel.fetchWeatherInfo(searchText)
-        
+    func textDidChange() {
+        viewModel.startSearching(searchBar.text)
     }
     
+    @objc
+    func clickedSearchBtn() {
+        viewModel.clickedSearchBtn(searchBar.text)
+    }
     
     // MARK: Subviews
     private lazy var pageTitleLbl = ReusableBoldLabel()

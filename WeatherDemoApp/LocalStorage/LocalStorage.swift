@@ -50,7 +50,7 @@ class LocalStorageHelper {
 
 // MARK: Private
 extension LocalStorageHelper {
-    // query for videos an video inf
+
     private func queryCityIsAlreadyAdded(
         _ weatherInfo: FormattedCityWeatherModel
     ) -> Results<CityRealmObject> {
