@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CityWeatherEntriesVC: UIViewController {
+final class CityWeatherEntriesVC: UIViewController {
     
     let cityWeatherInfo: CityRealmObject
     private var gradientView: CAGradientLayer?

@@ -29,6 +29,10 @@ struct Colors {
         currentTheme == .light ? UIColor(hex: "007AFF") : UIColor(hex: "C53249")
     }()
     
+    static var weatherContainerColor: UIColor? = {
+        currentTheme == .light ? UIColor.white : UIColor(hex: "2E2E2E")
+    }()
+    
     // MARK: Home gradient
     static var pageGradientFirstColor: CGColor? = {
         currentTheme == .light ? UIColor.white.cgColor : UIColor(hex: "262627")?.cgColor

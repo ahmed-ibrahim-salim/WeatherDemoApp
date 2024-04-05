@@ -13,6 +13,7 @@ source 'https://github.com/CocoaPods/Specs.git'
   pod 'RealmSwift', '~>10'
   pod 'SVProgressHUD'
   pod 'ReachabilitySwift'
+  pod 'SDWebImage', '~> 5.0'
 
 
   target 'WeatherDemoAppTests' do

@@ -35,6 +35,9 @@
 		E2839EE62BBE1D99003DC592 /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2839EE52BBE1D99003DC592 /* CitiesViewModel.swift */; };
 		E293AEC02BC09AEA003B1FF8 /* WeatherInfoDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293AEBF2BC09AEA003B1FF8 /* WeatherInfoDetailVC.swift */; };
 		E293AEC32BC0A63D003B1FF8 /* CityWeatherEntriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293AEC22BC0A63D003B1FF8 /* CityWeatherEntriesVC.swift */; };
+		E293AEC72BC0B68C003B1FF8 /* WeatherInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293AEC62BC0B68C003B1FF8 /* WeatherInfoContainerView.swift */; };
+		E293AEC92BC0BB96003B1FF8 /* WeatherRowStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293AEC82BC0BB96003B1FF8 /* WeatherRowStackView.swift */; };
+		E293AECB2BC0C046003B1FF8 /* SFProText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E293AECA2BC0BFCC003B1FF8 /* SFProText-Semibold.otf */; };
 		E2A943832BBFDCE500102753 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A943822BBFDCE500102753 /* LocalStorage.swift */; };
 		E2A943852BC0240C00102753 /* CityRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A943842BC0240C00102753 /* CityRealmObject.swift */; };
 		E2D5EDC02BBA9486007CC59E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDBF2BBA9486007CC59E /* AppDelegate.swift */; };
@@ -99,6 +102,9 @@
 		E2839EE52BBE1D99003DC592 /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
 		E293AEBF2BC09AEA003B1FF8 /* WeatherInfoDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoDetailVC.swift; sourceTree = "<group>"; };
 		E293AEC22BC0A63D003B1FF8 /* CityWeatherEntriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityWeatherEntriesVC.swift; sourceTree = "<group>"; };
+		E293AEC62BC0B68C003B1FF8 /* WeatherInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoContainerView.swift; sourceTree = "<group>"; };
+		E293AEC82BC0BB96003B1FF8 /* WeatherRowStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRowStackView.swift; sourceTree = "<group>"; };
+		E293AECA2BC0BFCC003B1FF8 /* SFProText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Semibold.otf"; sourceTree = "<group>"; };
 		E2A943822BBFDCE500102753 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		E2A943842BC0240C00102753 /* CityRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRealmObject.swift; sourceTree = "<group>"; };
 		E2D5EDBC2BBA9486007CC59E /* WeatherDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -226,6 +232,7 @@
 		E24C0E022BBBF4C6004F1D56 /* SF-Pro-Text */ = {
 			isa = PBXGroup;
 			children = (
+				E293AECA2BC0BFCC003B1FF8 /* SFProText-Semibold.otf */,
 				E24C0E032BBBF4C6004F1D56 /* SFProText-Regular.otf */,
 				E24C0E042BBBF4C6004F1D56 /* SFProText-Bold.otf */,
 			);
@@ -303,6 +310,7 @@
 		E293AEBE2BC09ADA003B1FF8 /* WeatherInfoDetailVC */ = {
 			isa = PBXGroup;
 			children = (
+				E293AEC52BC0B685003B1FF8 /* SubViews */,
 				E293AEBF2BC09AEA003B1FF8 /* WeatherInfoDetailVC.swift */,
 			);
 			path = WeatherInfoDetailVC;
@@ -311,17 +319,18 @@
 		E293AEC12BC0A62D003B1FF8 /* CityWeatherEntriesVC */ = {
 			isa = PBXGroup;
 			children = (
-				E293AEC42BC0AA8D003B1FF8 /* Cell */,
 				E293AEC22BC0A63D003B1FF8 /* CityWeatherEntriesVC.swift */,
 			);
 			path = CityWeatherEntriesVC;
 			sourceTree = "<group>";
 		};
-		E293AEC42BC0AA8D003B1FF8 /* Cell */ = {
+		E293AEC52BC0B685003B1FF8 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
+				E293AEC62BC0B68C003B1FF8 /* WeatherInfoContainerView.swift */,
+				E293AEC82BC0BB96003B1FF8 /* WeatherRowStackView.swift */,
 			);
-			path = Cell;
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 		E2A943812BBFDCC800102753 /* LocalStorage */ = {
@@ -502,6 +511,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E293AECB2BC0C046003B1FF8 /* SFProText-Semibold.otf in Resources */,
 				E2D5EDCC2BBA9488007CC59E /* LaunchScreen.storyboard in Resources */,
 				E24C0E052BBBF4C6004F1D56 /* SFProText-Regular.otf in Resources */,
 				E24C0E062BBBF4C6004F1D56 /* SFProText-Bold.otf in Resources */,
@@ -674,6 +684,8 @@
 				E25DDDD72BBCC6C000F64E06 /* Gradient.swift in Sources */,
 				E25DDDCF2BBCBC2600F64E06 /* ReusableBtn.swift in Sources */,
 				E20E7AB22BBE9E8200D21D72 /* WeatherFetcher.swift in Sources */,
+				E293AEC72BC0B68C003B1FF8 /* WeatherInfoContainerView.swift in Sources */,
+				E293AEC92BC0BB96003B1FF8 /* WeatherRowStackView.swift in Sources */,
 				E25DDDDA2BBCC6F200F64E06 /* GradientItem.swift in Sources */,
 				E2D5EDC22BBA9486007CC59E /* SceneDelegate.swift in Sources */,
 				E293AEC02BC09AEA003B1FF8 /* WeatherInfoDetailVC.swift in Sources */,

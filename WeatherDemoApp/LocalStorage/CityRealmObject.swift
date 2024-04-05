@@ -10,7 +10,7 @@ import RealmSwift
 
 /// london [weatherInfo 20-10-2024]
 /// each city will have an array of weather history info
-class CityRealmObject: Object, ObjectKeyIdentifiable {
+final class CityRealmObject: Object, ObjectKeyIdentifiable {
     @Persisted var cityName: String
     @Persisted var weatherInfoList = List<FormattedCityWeatherModel>()
 

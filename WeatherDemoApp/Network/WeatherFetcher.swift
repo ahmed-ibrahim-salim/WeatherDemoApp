@@ -18,8 +18,8 @@ protocol WeatherFetchable {
 }
 
 // MARK: - WeatherFetcher
-/// class responsible for requesting data from the server
-class WeatherFetcher: WeatherFetchable {
+/// final class responsible for requesting data from the server
+final class WeatherFetcher: WeatherFetchable {
     
     /// check network status
     let reachability = try? Reachability()

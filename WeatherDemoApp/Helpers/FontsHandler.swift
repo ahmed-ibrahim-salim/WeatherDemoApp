@@ -11,6 +11,7 @@ enum AppFonts: String {
     
     case bold = "Bold"
     case regular = "Regular"
+    case semibold = "Semibold"
     
     // MARK: Private
 

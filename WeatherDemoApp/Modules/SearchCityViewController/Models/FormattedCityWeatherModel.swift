@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class FormattedCityWeatherModel: Object {
+final class FormattedCityWeatherModel: Object {
     @Persisted var cityName: String
     @Persisted var temp: String
     @Persisted var humidity: String

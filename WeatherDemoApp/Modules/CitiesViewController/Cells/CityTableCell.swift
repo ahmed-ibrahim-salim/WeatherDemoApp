@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CityTableCell: UITableViewCell {
+final class CityTableCell: UITableViewCell {
     
     lazy var labelsStack = { 
         let stack = UIStackView()

@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class LocalStorageHelper {
+final class LocalStorageHelper {
     private static var realm = try! Realm()
     private static var instance = LocalStorageHelper()
     

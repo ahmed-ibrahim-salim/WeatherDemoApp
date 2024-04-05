@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class CitiesViewController: UITableViewController {
+final class CitiesViewController: UITableViewController {
     
     private let viewModel: CitiesViewModel!
     private var gradientView: CAGradientLayer?

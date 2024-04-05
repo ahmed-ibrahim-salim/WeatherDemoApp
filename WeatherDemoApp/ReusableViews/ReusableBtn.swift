@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReusableButton: UIButton {
+final class ReusableButton: UIButton {
     
     var btnTappedAction: VoidCallback?
     

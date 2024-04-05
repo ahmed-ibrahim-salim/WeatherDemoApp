@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import RealmSwift
 
-class SearchCityViewModel: BaseViewModel {
+final class SearchCityViewModel: BaseViewModel {
     
     /// output
     let error = PassthroughSubject<GenericServerErrorModel, Never>()

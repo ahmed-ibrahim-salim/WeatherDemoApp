@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 
-class SearchCityViewController: UIViewController {
+final class SearchCityViewController: UIViewController {
     
     private let viewModel: SearchCityViewModel!
     private let openCityWeatherInfo: ((CityRealmObject) -> Void)

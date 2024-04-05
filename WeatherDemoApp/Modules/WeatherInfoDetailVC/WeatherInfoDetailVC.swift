@@ -6,11 +6,11 @@
 //
 
 import UIKit
+import SDWebImage
 
-class WeatherInfoDetailVC: UIViewController {
+final class WeatherInfoDetailVC: UIViewController {
     
-    let cityWeatherInfo: FormattedCityWeatherModel
-    
+    private let cityWeatherInfo: FormattedCityWeatherModel
     private var gradientView: CAGradientLayer?
     
     init(cityWeatherInfo: FormattedCityWeatherModel) {
@@ -35,6 +35,8 @@ class WeatherInfoDetailVC: UIViewController {
         setupBottomTimeLbl()
         setupPageTitleLbl()
         setupLeftBtn()
+        addWeatherInfoContainerConstraints()
+        passDataToWeatherInfoContainer()
     }
     
     override func viewWillLayoutSubviews() {
@@ -66,11 +68,33 @@ class WeatherInfoDetailVC: UIViewController {
         leftBtn.configureBtnWith(model)
     }
     
+    private func passDataToWeatherInfoContainer() {
+        let models = [WeatherRowStackView.RowModel(
+            title: "Description",
+            value: cityWeatherInfo.desc
+        ), WeatherRowStackView.RowModel(
+            title: "Temperature",
+            value: cityWeatherInfo.temp
+        ), WeatherRowStackView.RowModel(
+            title: "Humidity",
+            value: cityWeatherInfo.humidity
+        ), WeatherRowStackView.RowModel(
+            title: "Wind Speed",
+            value: cityWeatherInfo.windSpeed
+        )]
+        
+        weatherInfoContainer.configRowsWith(
+            models,
+            cityWeatherInfo.icon
+        )
+    }
+    
     private func setupBottomTimeLbl() {
         let timeText = "Weather information for London received on \n \(cityWeatherInfo.getDateTimeFormatted())"
         bottomTimeLbl.setTitle(timeText)
         bottomTimeLbl.changeFont(AppFonts.regular.size(12))
     }
+    
     private func setupPageTitleLbl() {
         pageTitleLbl.setTitle(cityWeatherInfo.cityName)
     }
@@ -87,6 +111,9 @@ class WeatherInfoDetailVC: UIViewController {
             height: 0
         )
     )
+    
+    private lazy var weatherInfoContainer = WeatherInfoContainerView()
+
 }
 
 // MARK: Constraints
@@ -138,4 +165,16 @@ extension WeatherInfoDetailVC {
             
         ])
     }
+    
+    func addWeatherInfoContainerConstraints() {
+        view.addSubview(weatherInfoContainer)
+        
+        NSLayoutConstraint.activate([
+            weatherInfoContainer.topAnchor.constraint(equalTo: pageTitleLbl.bottomAnchor, constant: 40),
+            weatherInfoContainer.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
+            weatherInfoContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
+            
+        ])
+    }
+    
 }

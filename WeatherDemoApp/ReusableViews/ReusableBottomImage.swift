@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReusableBottomImage: UIImageView {
+final class ReusableBottomImage: UIImageView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

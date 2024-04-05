@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReusableBoldLabel: UILabel {
+final class ReusableBoldLabel: UILabel {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
