@@ -6,8 +6,50 @@
 //
 
 import Foundation
-
+import RealmSwift
+import Combine
 
 class CitiesViewModel: BaseViewModel {
+    
+    /// outputs
+    let error = PassthroughSubject<GenericServerErrorModel, Never>()
+    var cities: Results<CityRealmObject>!
+
+    /// callbacks
+    var reloadTableView: VoidCallback!
+    
+    /// service(s)
+    private let localStorageHelper: LocalStorageHelper
+    private var notificationToken: NotificationToken!
+    private var citiesObservervable: Results<CityRealmObject>!
+
+    /// injecting dependencies
+    init(localStorageHelper: LocalStorageHelper) {
+        self.localStorageHelper = localStorageHelper
+        super.init()
+        
+        self.startObservingCities()
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
+    }
+    
+    // MARK: Observing
+    private func startObservingCities() {
+        self.citiesObservervable = LocalStorageHelper.getCities()
+        self.cities = LocalStorageHelper.getCities()
+
+        notificationToken = citiesObservervable.observe { [unowned self] (changes: RealmCollectionChange) in
+            
+            switch changes {
+            case .initial, .update:
+                cities = LocalStorageHelper.getCities()
+                reloadTableView()
+            case .error:
+                let weatherError = GenericServerErrorModel(weatherError: .custom(description: "Something went wrong"))
+                self.error.send(weatherError)            }
+        }
+    }
     
 }

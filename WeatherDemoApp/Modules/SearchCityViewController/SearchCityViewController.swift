@@ -19,7 +19,7 @@ class SearchCityViewController: UIViewController {
     
     private var viewModel: SearchCityViewModel!
     private var gradientView: CAGradientLayer?
-    var disposables = Set<AnyCancellable>()
+    private var disposables = Set<AnyCancellable>()
 
     init(viewModel: SearchCityViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -37,14 +37,14 @@ class SearchCityViewController: UIViewController {
         setupPageTitleLbl()
         addCancelAction()
         
+        assignViewModelClosures()
+
         
         addPageTitleLabelConstaints()
         addSearchStackConstaints()
         addSearchBarConstaints()
         addSearchResultsTableConstaints()
         
-        
-        assignViewModelClosures()
     }
     
     override func viewWillLayoutSubviews() {
@@ -137,16 +137,14 @@ extension SearchCityViewController {
     func assignViewModelClosures() {
         
         /// listeners
-        viewModel.city.sink { value in
-            print(value)
-        }
-        .store(in: &disposables)
-        
         viewModel.error.sink { [unowned self] error in
             showAlert(error.message)
         }
         .store(in: &disposables)
         
+        viewModel.reloadTableView = { [unowned self] in
+            searchResultsTable.reloadData()
+        }
 
         /// indicators
         viewModel.showIndicator = { [unowned self] in
@@ -209,7 +207,7 @@ extension SearchCityViewController {
 // MARK: Search Results Table
 extension SearchCityViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        viewModel.cities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -217,7 +215,7 @@ extension SearchCityViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        cell.pageTitleLbl.text = "London"
+        cell.pageTitleLbl.text = viewModel.cities[indexPath.row].cityName
         return cell
         
     }

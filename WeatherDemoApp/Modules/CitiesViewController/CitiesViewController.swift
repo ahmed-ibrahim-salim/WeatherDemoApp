@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class CitiesViewController: UITableViewController {
     
     private var viewModel: CitiesViewModel!
     private var gradientView: CAGradientLayer?
-    
+    private var disposables = Set<AnyCancellable>()
+
     init(viewModel: CitiesViewModel) {
         super.init(style: .insetGrouped)
         self.viewModel = viewModel
@@ -37,6 +39,8 @@ class CitiesViewController: UITableViewController {
         addBottomImageConstaints()
         
         setupTableView()
+        
+        assignViewModelClosures()
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.path())
     }
@@ -138,11 +142,26 @@ extension CitiesViewController {
     }
 }
 
+// MARK: AssignViewModelClosures
+extension CitiesViewController {
+    func assignViewModelClosures() {
+        viewModel.reloadTableView = { [unowned self] in
+            tableView.reloadData()
+        }
+        
+        /// listeners
+        viewModel.error.sink { [unowned self] error in
+            showAlert(error.message)
+        }
+        .store(in: &disposables)
+    }
+}
+
 // MARK: Table
 extension CitiesViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        viewModel.cities.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,7 +169,7 @@ extension CitiesViewController {
             return UITableViewCell()
         }
         
-        cell.pageTitleLbl.text = "London"
+        cell.pageTitleLbl.text = viewModel.cities[indexPath.row].cityName
 
         return cell
         

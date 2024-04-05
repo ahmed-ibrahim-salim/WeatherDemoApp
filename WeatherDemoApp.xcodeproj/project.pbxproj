@@ -34,6 +34,7 @@
 		E2839EE42BBE1D56003DC592 /* CityTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2839EE32BBE1D56003DC592 /* CityTableCell.swift */; };
 		E2839EE62BBE1D99003DC592 /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2839EE52BBE1D99003DC592 /* CitiesViewModel.swift */; };
 		E2A943832BBFDCE500102753 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A943822BBFDCE500102753 /* LocalStorage.swift */; };
+		E2A943852BC0240C00102753 /* CityRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A943842BC0240C00102753 /* CityRealmObject.swift */; };
 		E2D5EDC02BBA9486007CC59E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDBF2BBA9486007CC59E /* AppDelegate.swift */; };
 		E2D5EDC22BBA9486007CC59E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDC12BBA9486007CC59E /* SceneDelegate.swift */; };
 		E2D5EDC42BBA9486007CC59E /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDC32BBA9486007CC59E /* CitiesViewController.swift */; };
@@ -95,6 +96,7 @@
 		E2839EE32BBE1D56003DC592 /* CityTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityTableCell.swift; sourceTree = "<group>"; };
 		E2839EE52BBE1D99003DC592 /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
 		E2A943822BBFDCE500102753 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
+		E2A943842BC0240C00102753 /* CityRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRealmObject.swift; sourceTree = "<group>"; };
 		E2D5EDBC2BBA9486007CC59E /* WeatherDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2D5EDBF2BBA9486007CC59E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2D5EDC12BBA9486007CC59E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				E2A943822BBFDCE500102753 /* LocalStorage.swift */,
+				E2A943842BC0240C00102753 /* CityRealmObject.swift */,
 			);
 			path = LocalStorage;
 			sourceTree = "<group>";
@@ -631,6 +634,7 @@
 				E2839EDF2BBE040F003DC592 /* SearchCityViewController.swift in Sources */,
 				E24C0E012BBBF3A2004F1D56 /* FontsHandler.swift in Sources */,
 				E2839EE12BBE131F003DC592 /* SearchCityViewModel.swift in Sources */,
+				E2A943852BC0240C00102753 /* CityRealmObject.swift in Sources */,
 				E25DDDD52BBCC2DF00F64E06 /* ReusableBottomImage.swift in Sources */,
 				E24C0DF32BBBED3B004F1D56 /* BaseViewModel.swift in Sources */,
 				E26BBE652BBF4F9D00A203E3 /* RequestBuilder.swift in Sources */,
