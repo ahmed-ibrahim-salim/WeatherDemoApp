@@ -64,7 +64,7 @@ final class WeatherInfoDetailVC: UIViewController {
         }
         
         let model = ReusableBtnModel(btnTappedAction: addBtnAction,
-                                     btnImage: UIImage(systemName: "arrow.left"))
+                                     btnImage: UIImage(systemName: "xmark"))
         leftBtn.configureBtnWith(model)
     }
     
@@ -90,9 +90,10 @@ final class WeatherInfoDetailVC: UIViewController {
     }
     
     private func setupBottomTimeLbl() {
-        let timeText = "Weather information for London received on \n \(cityWeatherInfo.getDateTimeFormatted())"
+        let timeText = "Weather information for \(cityWeatherInfo.cityName) received on \n \(cityWeatherInfo.getDateTimeFormatted())"
         bottomTimeLbl.setTitle(timeText)
         bottomTimeLbl.changeFont(AppFonts.regular.size(12))
+        bottomTimeLbl.textColor = UIColor(hex: "3D4548")
     }
     
     private func setupPageTitleLbl() {
@@ -161,7 +162,7 @@ extension WeatherInfoDetailVC {
             bottomImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bottomImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             bottomImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            bottomImage.heightAnchor.constraint(equalToConstant: 200)
+            bottomImage.heightAnchor.constraint(equalToConstant: 300)
             
         ])
     }

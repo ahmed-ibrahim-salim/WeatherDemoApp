@@ -30,7 +30,7 @@ final class WeatherInfoContainerView: UIView {
     private func setupViews() {
        backgroundColor = Colors.weatherContainerColor
        translatesAutoresizingMaskIntoConstraints = false
-       layer.cornerRadius = 20
+       layer.cornerRadius = 40
        layer.shadowColor = UIColor.black.cgColor
        layer.shadowOpacity = 0.2
        layer.shadowOffset = CGSize(width: 0, height: 8)
@@ -41,7 +41,7 @@ final class WeatherInfoContainerView: UIView {
     // MARK: Subviews
     private lazy var weatherImage = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -83,10 +83,10 @@ final class WeatherInfoContainerView: UIView {
         addSubview(weatherImage)
         
         NSLayoutConstraint.activate([
-            weatherImage.topAnchor.constraint(equalTo: topAnchor, constant: 55),
-            weatherImage.heightAnchor.constraint(equalToConstant: 100),
+            weatherImage.topAnchor.constraint(equalTo: topAnchor, constant: 45),
+            weatherImage.heightAnchor.constraint(equalToConstant: 150),
             
-            weatherImage.widthAnchor.constraint(equalToConstant: 100),
+            weatherImage.widthAnchor.constraint(equalToConstant: 150),
             weatherImage.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0)
         ])
     }
@@ -101,8 +101,8 @@ final class WeatherInfoContainerView: UIView {
         
         NSLayoutConstraint.activate([
             containerStack.topAnchor.constraint(equalTo: weatherImage.bottomAnchor, constant: 20),
-            containerStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-            containerStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            containerStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40),
+            containerStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 35),
             containerStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10)
             
         ])
