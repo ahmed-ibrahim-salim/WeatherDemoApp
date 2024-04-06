@@ -29,8 +29,9 @@ class LocalStorageManager: LocalStorageManagerProtocol {
     }
     
     /// reinject a different database helper
-    func changeLocalStorageType(_ localDb: LocalStorageProtocol) {
+    func changeLocalStorageType(_ localDb: LocalStorageProtocol) -> LocalStorageProtocol {
         localStorageHelper = localDb
+        return localStorageHelper
     }
     
     func getCities() -> [LocalStorageCity] {

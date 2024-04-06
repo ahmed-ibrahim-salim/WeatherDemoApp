@@ -16,7 +16,7 @@ protocol LocalStorageManagerProtocol {
     func deleteCity(by name: String) throws
     func clearDatabase() throws
     
-    func changeLocalStorageType(_ localDb: LocalStorageProtocol)
+    func changeLocalStorageType(_ localDb: LocalStorageProtocol) -> LocalStorageProtocol
     
     /// outputs
     var cities: PassthroughSubject<Result<[LocalStorageCity], LocalStorageError>, Never> {get}

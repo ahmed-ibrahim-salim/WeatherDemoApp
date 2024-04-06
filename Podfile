@@ -17,9 +17,7 @@ target 'WeatherDemoApp' do
 
   target 'WeatherDemoAppTests' do
     inherit! :search_paths
-    use_frameworks!
     # Pods for testing
-    pod 'ApprovalTests_Swift', '~> 2.0'
 
   end
 

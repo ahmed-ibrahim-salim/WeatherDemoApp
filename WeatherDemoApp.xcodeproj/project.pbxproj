@@ -50,7 +50,7 @@
 		E2D5EDC42BBA9486007CC59E /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDC32BBA9486007CC59E /* CitiesViewController.swift */; };
 		E2D5EDC92BBA9488007CC59E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E2D5EDC82BBA9488007CC59E /* Assets.xcassets */; };
 		E2D5EDCC2BBA9488007CC59E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E2D5EDCA2BBA9488007CC59E /* LaunchScreen.storyboard */; };
-		E2D5EDD72BBA9489007CC59E /* WeatherDemoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDD62BBA9489007CC59E /* WeatherDemoAppTests.swift */; };
+		E2D5EDD72BBA9489007CC59E /* LocalStorageManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDD62BBA9489007CC59E /* LocalStorageManagerTests.swift */; };
 		E2D5EDE12BBA9489007CC59E /* WeatherDemoAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDE02BBA9489007CC59E /* WeatherDemoAppUITests.swift */; };
 		E2D5EDE32BBA9489007CC59E /* WeatherDemoAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDE22BBA9489007CC59E /* WeatherDemoAppUITestsLaunchTests.swift */; };
 		E99CC36F3E4471256DC07E5A /* Pods_WeatherDemoAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14584EAE374B9C588C546526 /* Pods_WeatherDemoAppTests.framework */; };
@@ -125,7 +125,7 @@
 		E2D5EDCB2BBA9488007CC59E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E2D5EDCD2BBA9488007CC59E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E2D5EDD22BBA9489007CC59E /* WeatherDemoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherDemoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E2D5EDD62BBA9489007CC59E /* WeatherDemoAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDemoAppTests.swift; sourceTree = "<group>"; };
+		E2D5EDD62BBA9489007CC59E /* LocalStorageManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorageManagerTests.swift; sourceTree = "<group>"; };
 		E2D5EDDC2BBA9489007CC59E /* WeatherDemoAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherDemoAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2D5EDE02BBA9489007CC59E /* WeatherDemoAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDemoAppUITests.swift; sourceTree = "<group>"; };
 		E2D5EDE22BBA9489007CC59E /* WeatherDemoAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDemoAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -373,8 +373,8 @@
 		E2A943812BBFDCC800102753 /* LocalStorage */ = {
 			isa = PBXGroup;
 			children = (
-				E2787BBF2BC19F3500E6A536 /* LocalStorageManager */,
 				E2720C992BC137AF000D3D68 /* Models */,
+				E2787BBF2BC19F3500E6A536 /* LocalStorageManager */,
 				E2720C9E2BC13F5C000D3D68 /* LocalStorageHelpers */,
 				E293AECC2BC0CC5D003B1FF8 /* LocalStorageError.swift */,
 			);
@@ -426,7 +426,7 @@
 		E2D5EDD52BBA9489007CC59E /* WeatherDemoAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				E2D5EDD62BBA9489007CC59E /* WeatherDemoAppTests.swift */,
+				E2D5EDD62BBA9489007CC59E /* LocalStorageManagerTests.swift */,
 			);
 			path = WeatherDemoAppTests;
 			sourceTree = "<group>";
@@ -471,7 +471,6 @@
 				E2D5EDCE2BBA9489007CC59E /* Sources */,
 				E2D5EDCF2BBA9489007CC59E /* Frameworks */,
 				E2D5EDD02BBA9489007CC59E /* Resources */,
-				A29AF7C114B80B0BD9D304E0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -637,23 +636,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A29AF7C114B80B0BD9D304E0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeatherDemoAppTests/Pods-WeatherDemoAppTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WeatherDemoAppTests/Pods-WeatherDemoAppTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WeatherDemoAppTests/Pods-WeatherDemoAppTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		CFF5F58154FD5147EE37B935 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -761,7 +743,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2D5EDD72BBA9489007CC59E /* WeatherDemoAppTests.swift in Sources */,
+				E2D5EDD72BBA9489007CC59E /* LocalStorageManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -838,7 +820,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -901,7 +883,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

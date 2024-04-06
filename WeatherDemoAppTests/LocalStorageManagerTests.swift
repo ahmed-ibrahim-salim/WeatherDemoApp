@@ -6,18 +6,18 @@
 //
 
 import XCTest
-import ApprovalTests_Swift
-
+import Combine
 @testable import WeatherDemoApp
 
-final class WeatherDemoAppTests: XCTestCase {
+final class LocalStorageManagerTests: XCTestCase {
 
     override func setUpWithError() throws {
-        
     }
 
     override func tearDownWithError() throws {
         
     }
+    
+ 
     
 }
