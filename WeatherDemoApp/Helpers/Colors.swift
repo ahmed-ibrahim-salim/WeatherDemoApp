@@ -34,19 +34,19 @@ struct Colors {
     }()
     
     // MARK: Home gradient
-    static var pageGradientFirstColor: CGColor? = {
-        currentTheme == .light ? UIColor.white.cgColor : UIColor(hex: "262627")?.cgColor
+    static var pageGradientFirstColor: UIColor? = {
+        currentTheme == .light ? UIColor.white : UIColor(hex: "262627")
     }()
     
-    static var pageGradientSecondColor: CGColor? = {
-        currentTheme == .light ? UIColor(hex: "D6D3DE")?.cgColor : UIColor(hex: "242325")?.cgColor
+    static var pageGradientSecondColor: UIColor? = {
+        currentTheme == .light ? UIColor(hex: "D6D3DE") : UIColor(hex: "242325")
     }()
     
     static var pageGradient = {
         return GradientItem(
             colors: [
-                pageGradientFirstColor,
-                pageGradientSecondColor]
+                pageGradientFirstColor?.cgColor,
+                pageGradientSecondColor?.cgColor]
                 .compactMap {
                     $0
                 },

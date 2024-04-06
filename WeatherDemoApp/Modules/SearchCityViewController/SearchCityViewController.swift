@@ -115,6 +115,7 @@ final class SearchCityViewController: UIViewController {
     private lazy var searchResultsTable: UITableView! = {
         let myTableView = UITableView()
         myTableView.backgroundColor = .clear
+        myTableView.showsVerticalScrollIndicator = false
         myTableView.translatesAutoresizingMaskIntoConstraints = false
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")
         myTableView.dataSource = self

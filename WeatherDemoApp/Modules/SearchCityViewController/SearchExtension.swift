@@ -28,10 +28,11 @@ extension SearchCityViewController: UISearchBarDelegate {
             return true
         }
         
-        let allowedCharcters = CharacterSet.alphanumerics
-
+        var allowedCharacters = CharacterSet.alphanumerics
+        allowedCharacters.insert(charactersIn: " ")
+        
         // allowing only Letters and numbers
-        guard text.rangeOfCharacter(from: allowedCharcters) != nil else {
+        guard text.rangeOfCharacter(from: allowedCharacters) != nil else {
             return false
         }
         

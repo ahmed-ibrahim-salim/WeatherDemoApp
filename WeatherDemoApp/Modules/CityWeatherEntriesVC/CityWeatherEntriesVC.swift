@@ -75,6 +75,7 @@ final class CityWeatherEntriesVC: UIViewController {
     private lazy var leftBtn = ReusableButton()
     private lazy var historicalResultsTable: UITableView! = {
         let myTableView = UITableView()
+        myTableView.showsVerticalScrollIndicator = false
         myTableView.backgroundColor = .clear
         myTableView.translatesAutoresizingMaskIntoConstraints = false
         myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "MyCell")

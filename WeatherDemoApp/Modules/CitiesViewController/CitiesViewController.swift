@@ -28,7 +28,6 @@ final class CitiesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: false)
-//        view.backgroundColor = UIColor(hex: "D6D3DE")
         
         setupRightBtn()
         setupPageTitleLbl()
@@ -49,22 +48,24 @@ final class CitiesViewController: UITableViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         // to activate gradient
-        gradientView?.frame = view.bounds
+        gradientView?.frame = tableView.bounds
     }
     
     // MARK: View Configurators
     private func setupTableView() {
         tableView.rowHeight = 60
+        tableView.showsVerticalScrollIndicator = false
+        tableView.backgroundColor = Colors.pageGradientFirstColor
         tableView.register(
             CityTableCell.self,
             forCellReuseIdentifier: CityTableCell.identifier
         )
-        tableView.bounces = false
+//        tableView.bounces = false
     }
     private func addGradient() {
         let pageGradient = Colors.pageGradient
         
-        gradientView = view.setGradient(colors: pageGradient.colors,
+        gradientView = tableView.setGradient(colors: pageGradient.colors,
                                         locations: pageGradient.locations,
                                         startPoint: pageGradient.startPoint,
                                         endPoint: pageGradient.endPoint)
@@ -153,10 +154,10 @@ extension CitiesViewController {
         
         view.addSubview(bottomImage)
         NSLayoutConstraint.activate([
-            bottomImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bottomImage.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 35),
             bottomImage.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             bottomImage.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            bottomImage.heightAnchor.constraint(equalToConstant: 200)
+            bottomImage.heightAnchor.constraint(equalToConstant: 250)
             
         ])
     }

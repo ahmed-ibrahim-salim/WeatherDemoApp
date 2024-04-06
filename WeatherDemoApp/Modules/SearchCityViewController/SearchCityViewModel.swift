@@ -15,7 +15,7 @@ final class SearchCityViewModel: BaseViewModel {
     let realmDBError = PassthroughSubject<RealmDBError, Never>()
     let serverError = PassthroughSubject<GenericServerErrorModel, Never>()
     private var cities: Results<CityRealmObject>!
-
+    
     /// callbacks
     var reloadTableView: VoidCallback!
     
@@ -118,8 +118,14 @@ extension SearchCityViewModel {
                 let city = cityWeatherInfo.getFormattedCityWeatherModel()
                 
                 do {
-                /// add to DB
-                try self.localStorageHelper.addCityWeatherInfoToRealm(weatherInfo: city)
+                    /// add to DB
+                    try self.localStorageHelper.addCityWeatherInfoToRealm(weatherInfo: city)
+                    
+                    /// update results list
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [unowned self] in
+                        startSearching(city.cityName)
+                    }
+                    
                 } catch {
                     if let error = error as? RealmDBError {
                         self.realmDBError.send(error)
