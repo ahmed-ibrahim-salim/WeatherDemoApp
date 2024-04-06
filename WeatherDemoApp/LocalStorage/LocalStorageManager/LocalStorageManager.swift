@@ -8,14 +8,13 @@
 import Foundation
 import Combine
 
-
 class LocalStorageManager: LocalStorageManagerProtocol {
     
-    static let shared = LocalStorageManager(helper: RealmStorageHelper()) // Realm as default
-    private var localStorageHelper: LocalStorageProtocol
-    
+    static let shared = LocalStorageManager(helper: RealmStorageHelper()) /// Realm as default local storage
     /// outputs
     let cities = PassthroughSubject<Result<[LocalStorageCity], LocalStorageError>, Never>()
+
+    private var localStorageHelper: LocalStorageProtocol
     private var disposables = Set<AnyCancellable>()
 
     private init(helper: LocalStorageProtocol) {
@@ -29,12 +28,13 @@ class LocalStorageManager: LocalStorageManagerProtocol {
         }.store(in: &disposables)
     }
     
+    /// reinject a different database helper
     func changeLocalStorageType(_ localDb: LocalStorageProtocol) {
         localStorageHelper = localDb
     }
     
     func getCities() -> [LocalStorageCity] {
-      return localStorageHelper.getCitiesData()
+       localStorageHelper.getCitiesData()
     }
 
     func addCity(_ weatherInfo: FormattedCityWeatherModel) throws {

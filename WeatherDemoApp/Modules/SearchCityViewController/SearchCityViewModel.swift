@@ -106,6 +106,7 @@ extension SearchCityViewModel {
 
 // MARK: Api calls
 extension SearchCityViewModel {
+    
     private func fetchWeatherInfo(_ city: String) {
         showIndicator()
         
@@ -130,6 +131,7 @@ extension SearchCityViewModel {
                         self.localStorageError.send(error)
                     }
                 }
+                
             case.failure(let err):
                 self.serverError.send(err)
             }

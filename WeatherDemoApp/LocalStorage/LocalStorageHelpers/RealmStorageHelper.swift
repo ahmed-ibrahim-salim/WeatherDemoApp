@@ -13,12 +13,11 @@ final class RealmStorageHelper: LocalStorageProtocol {
     
     private var notificationToken: NotificationToken!
     private var citiesObservervable: Results<CityRealmObject>!
-
+    
     /// outputs
     let cities = PassthroughSubject<Result<[LocalStorageCity], LocalStorageError>, Never>()
     
     init() {
-        
         startObservingCities()
     }
     
@@ -31,15 +30,15 @@ final class RealmStorageHelper: LocalStorageProtocol {
         return realm
             .objects(CityRealmObject.self)
             .sorted(by: \.cityName)
-            .map{$0.getLocalStorageCity()}
+            .map {$0.getLocalStorageCity()}
     }
-
+    
     // MARK: Add
     /// add a city to local storage
     func addCityWeatherInfoToLocalStorage(weatherInfo: FormattedCityWeatherModel) throws {
         
         /// if city is present in DB, then append history entity
-        if let city = queryCityIsAlreadyAdded(weatherInfo).first {
+        if let city = queryCityByName(weatherInfo.cityName).first {
             do {
                 try? realm.write {
                     city.weatherInfoList.append(weatherInfo)
@@ -64,7 +63,7 @@ final class RealmStorageHelper: LocalStorageProtocol {
     
     // MARK: Delete
     func deleteCityFromLocalStorage(_ cityName: String) throws {
-
+        
         if let city = queryCityByName(cityName).first {
             do {
                 try? realm.write {
@@ -77,7 +76,7 @@ final class RealmStorageHelper: LocalStorageProtocol {
         }
     }
     
-    // Delete All
+    /// Delete All
     func clearDatabase() throws {
         let videosInfo = realm.objects(CityRealmObject.self)
         
@@ -89,7 +88,7 @@ final class RealmStorageHelper: LocalStorageProtocol {
                 }
             } catch {
                 throw LocalStorageError.deleteError
-
+                
             }
         }
     }
@@ -99,10 +98,15 @@ final class RealmStorageHelper: LocalStorageProtocol {
 extension RealmStorageHelper {
     
     private func startObservingCities() {
-        citiesObservervable = getCitiesObservable()
-        /// initial
+        /// 1) set the observable object
+        citiesObservervable = realm
+            .objects(CityRealmObject.self)
+            .sorted(by: \.cityName)
+        
+        /// intial value
         cities.send(.success(getCitiesData()))
-
+        
+        /// 2) start listening
         notificationToken = citiesObservervable.observe { [unowned self] (changes: RealmCollectionChange) in
             
             switch changes {
@@ -114,13 +118,6 @@ extension RealmStorageHelper {
         }
     }
     
-    private func getCitiesObservable() -> Results<CityRealmObject> {
-        
-        return realm
-                .objects(CityRealmObject.self)
-                .sorted(by: \.cityName)
-    }
-    
     private func queryCityByName(
         _ cityName: String
     ) -> Results<CityRealmObject> {
@@ -128,20 +125,7 @@ extension RealmStorageHelper {
         let cities = realm.objects(CityRealmObject.self).where({
             $0.cityName == cityName
         })
-                
-        return cities
-    }
-    
-    private func queryCityIsAlreadyAdded(
-        _ weatherInfo: FormattedCityWeatherModel
-    ) -> Results<CityRealmObject> {
         
-        let cities = realm.objects(CityRealmObject.self).where({
-            $0.cityName == weatherInfo.cityName
-        })
-                
         return cities
     }
 }
-
-
