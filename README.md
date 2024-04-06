@@ -24,14 +24,17 @@ if you are faceing error "Double-quoted include" while building:
     ```
 
 ## Linting
-used SwiftLint to enforce code style with warnings & errors
+used SwiftLint to enforce code style with warnings & errors.
 
 ## Used
 MVVM, Combine, Realm DB & UI programmatically.
 
+## Dark Theme
+change os theme from settings to try dark and light theme.
+
+
 ## Unit-Testing
-because my schedule was tight, I had no time to add unit tests, but I improved the code to be testable as much as possible by using dependency injection (initialiser & method), so we can use test doubles 
-which means we can inject:
-- other DB (CoreData) to LocalStorageManager.
-- other Database Manager to viewModels. 
+because my schedule was tight, I had no time to add unit tests, but I improved the code to be testable as much as possible by using dependency injection (initialiser & method), so we can use test doubles:
+- we can inject other DB (CoreData) to LocalStorageManager.
+- we can inject other Database Manager to viewModels. 
 

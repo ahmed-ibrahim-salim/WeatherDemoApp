@@ -17,8 +17,8 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let window = UIWindow(windowScene: windowScene)
             self.window = window
             
-            /// replace value with .dark or .light to change theme color
-            window.overrideUserInterfaceStyle = .light
+            /// theme color for device os
+            window.overrideUserInterfaceStyle = UIScreen.main.traitCollection.userInterfaceStyle
 
             let citiesViewModel = CitiesViewModel(localStorageHelper: LocalStorageManager.shared)
             let viewControlller = CitiesViewController(viewModel: citiesViewModel)
