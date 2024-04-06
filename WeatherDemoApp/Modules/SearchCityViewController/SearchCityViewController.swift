@@ -226,6 +226,12 @@ extension SearchCityViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cityWeatherInfo = viewModel.getCityFor(indexPath.row)
+        
+        openCityWeatherInfo(cityWeatherInfo)
+    }
+    
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         let cityWeatherInfo = viewModel.getCityFor(indexPath.row)
         

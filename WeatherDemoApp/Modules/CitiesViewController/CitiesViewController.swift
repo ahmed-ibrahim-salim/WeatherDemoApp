@@ -207,6 +207,11 @@ extension CitiesViewController {
         
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cityWeatherInfo = viewModel.getCityFor(indexPath.row)
+        presentWeatherDetailScreen(cityWeatherInfo)
+    }
+    
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         let cityWeatherInfo = viewModel.getCityFor(indexPath.row)
         presentWeatherDetailScreen(cityWeatherInfo)
