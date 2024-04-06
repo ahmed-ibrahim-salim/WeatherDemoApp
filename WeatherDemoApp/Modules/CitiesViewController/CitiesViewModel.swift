@@ -12,7 +12,8 @@ import Combine
 final class CitiesViewModel: BaseViewModel {
     
     /// outputs
-    let error = PassthroughSubject<GenericServerErrorModel, Never>()
+    let realmDBError = PassthroughSubject<RealmDBError, Never>()
+    let serverError = PassthroughSubject<GenericServerErrorModel, Never>()
     private var cities: Results<CityRealmObject>!
 
     /// callbacks
@@ -48,7 +49,7 @@ final class CitiesViewModel: BaseViewModel {
                 reloadTableView()
             case .error:
                 let weatherError = GenericServerErrorModel(weatherError: .custom(description: "Something went wrong"))
-                self.error.send(weatherError)            }
+                self.serverError.send(weatherError)            }
         }
     }
    
@@ -66,5 +67,16 @@ extension CitiesViewModel {
     
     func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
         cities[indexPath.row]
+    }
+    
+    func deleteCity(_ indexPath: IndexPath) {
+        let city = getCityFor(indexPath)
+        do {
+            try localStorageHelper.deleteCity(city)
+        } catch {
+            if let error = error as? RealmDBError {
+                self.realmDBError.send(error)
+            }
+        }
     }
 }

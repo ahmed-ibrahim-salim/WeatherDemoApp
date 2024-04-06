@@ -38,6 +38,7 @@
 		E293AEC72BC0B68C003B1FF8 /* WeatherInfoContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293AEC62BC0B68C003B1FF8 /* WeatherInfoContainerView.swift */; };
 		E293AEC92BC0BB96003B1FF8 /* WeatherRowStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293AEC82BC0BB96003B1FF8 /* WeatherRowStackView.swift */; };
 		E293AECB2BC0C046003B1FF8 /* SFProText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = E293AECA2BC0BFCC003B1FF8 /* SFProText-Semibold.otf */; };
+		E293AECD2BC0CC5D003B1FF8 /* RealmDBError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E293AECC2BC0CC5D003B1FF8 /* RealmDBError.swift */; };
 		E2A943832BBFDCE500102753 /* LocalStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A943822BBFDCE500102753 /* LocalStorage.swift */; };
 		E2A943852BC0240C00102753 /* CityRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A943842BC0240C00102753 /* CityRealmObject.swift */; };
 		E2D5EDC02BBA9486007CC59E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D5EDBF2BBA9486007CC59E /* AppDelegate.swift */; };
@@ -105,6 +106,7 @@
 		E293AEC62BC0B68C003B1FF8 /* WeatherInfoContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoContainerView.swift; sourceTree = "<group>"; };
 		E293AEC82BC0BB96003B1FF8 /* WeatherRowStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRowStackView.swift; sourceTree = "<group>"; };
 		E293AECA2BC0BFCC003B1FF8 /* SFProText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Semibold.otf"; sourceTree = "<group>"; };
+		E293AECC2BC0CC5D003B1FF8 /* RealmDBError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDBError.swift; sourceTree = "<group>"; };
 		E2A943822BBFDCE500102753 /* LocalStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalStorage.swift; sourceTree = "<group>"; };
 		E2A943842BC0240C00102753 /* CityRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRealmObject.swift; sourceTree = "<group>"; };
 		E2D5EDBC2BBA9486007CC59E /* WeatherDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,6 +340,7 @@
 			children = (
 				E2A943822BBFDCE500102753 /* LocalStorage.swift */,
 				E2A943842BC0240C00102753 /* CityRealmObject.swift */,
+				E293AECC2BC0CC5D003B1FF8 /* RealmDBError.swift */,
 			);
 			path = LocalStorage;
 			sourceTree = "<group>";
@@ -675,6 +678,7 @@
 				E24C0E012BBBF3A2004F1D56 /* FontsHandler.swift in Sources */,
 				E2839EE12BBE131F003DC592 /* SearchCityViewModel.swift in Sources */,
 				E2A943852BC0240C00102753 /* CityRealmObject.swift in Sources */,
+				E293AECD2BC0CC5D003B1FF8 /* RealmDBError.swift in Sources */,
 				E25DDDD52BBCC2DF00F64E06 /* ReusableBottomImage.swift in Sources */,
 				E293AEC32BC0A63D003B1FF8 /* CityWeatherEntriesVC.swift in Sources */,
 				E24C0DF32BBBED3B004F1D56 /* BaseViewModel.swift in Sources */,

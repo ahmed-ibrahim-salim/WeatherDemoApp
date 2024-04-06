@@ -136,10 +136,16 @@ extension SearchCityViewController {
     func assignViewModelClosures() {
         
         /// listeners
-        viewModel.error.sink { [unowned self] error in
+        viewModel.serverError.sink { [unowned self] error in
             showAlert(error.message)
         }
         .store(in: &disposables)
+        
+        viewModel.realmDBError.sink { [unowned self] error in
+            showAlert(error.localizedDescription)
+        }
+        .store(in: &disposables)
+        
         
         viewModel.reloadTableView = { [unowned self] in
             searchResultsTable.reloadData()

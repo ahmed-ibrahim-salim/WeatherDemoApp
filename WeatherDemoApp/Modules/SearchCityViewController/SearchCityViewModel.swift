@@ -12,7 +12,8 @@ import RealmSwift
 final class SearchCityViewModel: BaseViewModel {
     
     /// output
-    let error = PassthroughSubject<GenericServerErrorModel, Never>()
+    let realmDBError = PassthroughSubject<RealmDBError, Never>()
+    let serverError = PassthroughSubject<GenericServerErrorModel, Never>()
     private var notificationToken: NotificationToken!
     var cities: Results<CityRealmObject>!
     
@@ -53,7 +54,7 @@ final class SearchCityViewModel: BaseViewModel {
                 reloadTableView()
             case .error:
                 let weatherError = GenericServerErrorModel(weatherError: .custom(description: "Something went wrong"))
-                self.error.send(weatherError)            }
+                self.serverError.send(weatherError)            }
         }
     }
 }
@@ -116,10 +117,16 @@ extension SearchCityViewModel {
             case .success(let cityWeatherInfo):
                 let city = cityWeatherInfo.getFormattedCityWeatherModel()
                 
+                do {
                 /// add to DB
-                self.localStorageHelper.addCityWeatherInfoToRealm(weatherInfo: city)
+                try self.localStorageHelper.addCityWeatherInfoToRealm(weatherInfo: city)
+                } catch {
+                    if let error = error as? RealmDBError {
+                        self.realmDBError.send(error)
+                    }
+                }
             case.failure(let err):
-                self.error.send(err)
+                self.serverError.send(err)
             }
             
         }

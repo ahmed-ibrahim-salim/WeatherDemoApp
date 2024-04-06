@@ -170,8 +170,13 @@ extension CitiesViewController {
         }
         
         /// listeners
-        viewModel.error.sink { [unowned self] error in
+        viewModel.serverError.sink { [unowned self] error in
             showAlert(error.message)
+        }
+        .store(in: &disposables)
+        
+        viewModel.realmDBError.sink { [unowned self] error in
+            showAlert(error.localizedDescription)
         }
         .store(in: &disposables)
     }
@@ -212,6 +217,16 @@ extension CitiesViewController {
         )
         
         return view
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            viewModel.deleteCity(indexPath)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        default:
+            break
+        }
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
