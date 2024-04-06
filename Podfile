@@ -3,8 +3,9 @@
 
 target 'WeatherDemoApp' do
   # Comment the next line if you don't want to use dynamic frameworks
+  inherit! :search_paths
   use_frameworks!
-source 'https://github.com/CocoaPods/Specs.git'
+  source 'https://github.com/CocoaPods/Specs.git'
 
   # Pods for WeatherDemoApp
 
@@ -14,6 +15,7 @@ source 'https://github.com/CocoaPods/Specs.git'
   pod 'SVProgressHUD'
   pod 'ReachabilitySwift'
   pod 'SDWebImage', '~> 5.0'
+  pod 'ApprovalTests_Swift', '~> 2.0'
 
 
   target 'WeatherDemoAppTests' do

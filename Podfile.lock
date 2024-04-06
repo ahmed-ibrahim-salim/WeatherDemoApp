@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.6.4)
+  - ApprovalTests_Swift (2.0.0)
   - ReachabilitySwift (5.0.0)
   - Realm (10.47.0):
     - Realm/Headers (= 10.47.0)
@@ -16,6 +17,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.6.2)
+  - ApprovalTests_Swift (~> 2.0)
   - ReachabilitySwift
   - RealmSwift (~> 10)
   - SDWebImage (~> 5.0)
@@ -25,6 +27,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
+    - ApprovalTests_Swift
     - ReachabilitySwift
     - Realm
     - RealmSwift
@@ -34,6 +37,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  ApprovalTests_Swift: 07bbccf571a11844e3b0c26a1ff101a0d32b2330
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   Realm: e43fb540ae947497e3ea8a662443256920602060
   RealmSwift: 8b06ed06b5d16749ae0c4d91c0cba414a9e28189
@@ -41,6 +45,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 9b544a0506226d06ea7ef101c4b58e4696170961
+PODFILE CHECKSUM: 5fa3c0e576e438269554d086600e65ad661651ea
 
 COCOAPODS: 1.14.3

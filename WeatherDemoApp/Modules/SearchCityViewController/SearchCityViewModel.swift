@@ -14,9 +14,8 @@ final class SearchCityViewModel: BaseViewModel {
     /// output
     let realmDBError = PassthroughSubject<RealmDBError, Never>()
     let serverError = PassthroughSubject<GenericServerErrorModel, Never>()
-    private var notificationToken: NotificationToken!
-    var cities: Results<CityRealmObject>!
-    
+    private var cities: Results<CityRealmObject>!
+
     /// callbacks
     var reloadTableView: VoidCallback!
     
@@ -24,6 +23,7 @@ final class SearchCityViewModel: BaseViewModel {
     private let weatherFetcher: WeatherFetchable
     private let localStorageHelper: LocalStorageHelper
     private var citiesObservervable: Results<CityRealmObject>!
+    private var notificationToken: NotificationToken!
     
     /// injecting dependencies
     init(weatherFetcher: WeatherFetchable,

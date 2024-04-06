@@ -146,7 +146,6 @@ extension SearchCityViewController {
         }
         .store(in: &disposables)
         
-        
         viewModel.reloadTableView = { [unowned self] in
             searchResultsTable.reloadData()
         }
