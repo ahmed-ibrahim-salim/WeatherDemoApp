@@ -28,3 +28,10 @@ used SwiftLint to enforce code style with warnings & errors
 
 ## Used
 MVVM, Combine, Realm DB & UI programmatically.
+
+## Unit-Testing
+because my schedule was tight, I had no time to add unit tests, but I improved the code to be testable as much as possible by using dependency injection (initialiser & method), so we can use test doubles 
+which means we can inject:
+- other DB (CoreData) to LocalStorageManager.
+- other Database Manager to viewModels. 
+
