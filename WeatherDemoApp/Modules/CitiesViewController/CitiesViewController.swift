@@ -51,6 +51,11 @@ final class CitiesViewController: UITableViewController {
         gradientView?.frame = tableView.bounds
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.bringSubviewToFront(rightBtn)
+    }
+    
     // MARK: View Configurators
     private func setupTableView() {
         tableView.rowHeight = 60
@@ -128,6 +133,7 @@ extension CitiesViewController {
     private func addBtnViewConstaints() {
         
         view.addSubview(rightBtn)
+        
         NSLayoutConstraint.activate(
             [
                 rightBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
