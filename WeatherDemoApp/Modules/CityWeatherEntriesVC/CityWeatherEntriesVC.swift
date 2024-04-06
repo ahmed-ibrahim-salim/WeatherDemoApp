@@ -10,10 +10,10 @@ import UIKit
 
 final class CityWeatherEntriesVC: UIViewController {
     
-    let cityWeatherInfo: CityRealmObject
+    let cityWeatherInfo: LocalStorageCity
     private var gradientView: CAGradientLayer?
     
-    init(cityWeatherInfo: CityRealmObject) {
+    init(cityWeatherInfo: LocalStorageCity) {
         self.cityWeatherInfo = cityWeatherInfo
         super.init(nibName: nil, bundle: nil)
     }

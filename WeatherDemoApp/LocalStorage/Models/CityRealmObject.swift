@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-/// london [weatherInfo 20-10-2024]
+/// london Array<weatherInfo 20-10-2024>
 /// each city will have an array of weather history info
 final class CityRealmObject: Object, ObjectKeyIdentifiable {
     @Persisted var cityName: String
@@ -21,4 +21,11 @@ final class CityRealmObject: Object, ObjectKeyIdentifiable {
         self.cityName = weatherInfoItem.cityName
     }
 
+    func getLocalStorageCity() -> LocalStorageCity {
+        return LocalStorageCity(
+            weatherInfoList: Array(weatherInfoList),
+            cityName: cityName
+        )
+    }
 }
+

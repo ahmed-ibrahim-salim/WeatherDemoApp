@@ -12,12 +12,12 @@ import Combine
 final class SearchCityViewController: UIViewController {
     
     private let viewModel: SearchCityViewModel!
-    private let openCityWeatherInfo: ((CityRealmObject) -> Void)
+    private let openCityWeatherInfo: ((LocalStorageCity) -> Void)
     private var gradientView: CAGradientLayer?
     private var disposables = Set<AnyCancellable>()
 
     init(viewModel: SearchCityViewModel,
-         openCityWeatherInfo: @escaping ((CityRealmObject) -> Void)) {
+         openCityWeatherInfo: @escaping ((LocalStorageCity) -> Void)) {
 
         self.viewModel = viewModel
         self.openCityWeatherInfo = openCityWeatherInfo
@@ -76,10 +76,10 @@ final class SearchCityViewController: UIViewController {
     }
     
     // MARK: startSendingText
-    @objc
-    func textDidChange() {
-        viewModel.startSearching(searchBar.text)
-    }
+//    @objc
+//    func textDidChange() {
+//        viewModel.startSearching(searchBar.text)
+//    }
     
     @objc
     func clickedSearchBtn() {
@@ -142,7 +142,7 @@ extension SearchCityViewController {
         }
         .store(in: &disposables)
         
-        viewModel.realmDBError.sink { [unowned self] error in
+        viewModel.localStorageError.sink { [unowned self] error in
             showAlert(error.localizedDescription)
         }
         .store(in: &disposables)
@@ -220,14 +220,14 @@ extension SearchCityViewController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell()
         }
         
-        cell.pageTitleLbl.text = viewModel.getCityNameFor(indexPath)
+        cell.pageTitleLbl.text = viewModel.getCityNameFor(indexPath.row)
 
         return cell
         
     }
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let cityWeatherInfo = viewModel.getCityFor(indexPath)
+        let cityWeatherInfo = viewModel.getCityFor(indexPath.row)
         
         openCityWeatherInfo(cityWeatherInfo)
     }

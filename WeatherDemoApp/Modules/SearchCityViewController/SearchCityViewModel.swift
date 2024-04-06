@@ -7,27 +7,26 @@
 
 import Foundation
 import Combine
-import RealmSwift
 
 final class SearchCityViewModel: BaseViewModel {
     
     /// output
-    let realmDBError = PassthroughSubject<RealmDBError, Never>()
+    let localStorageError = PassthroughSubject<LocalStorageError, Never>()
     let serverError = PassthroughSubject<GenericServerErrorModel, Never>()
-    private var cities: Results<CityRealmObject>!
-    
+
+    private var cities = [LocalStorageCity]()
+    private var disposables = Set<AnyCancellable>()
+
     /// callbacks
     var reloadTableView: VoidCallback!
     
     /// service(s)
     private let weatherFetcher: WeatherFetchable
-    private let localStorageHelper: LocalStorageHelper
-    private var citiesObservervable: Results<CityRealmObject>!
-    private var notificationToken: NotificationToken!
-    
+    private let localStorageHelper: LocalStorageManagerProtocol
+ 
     /// injecting dependencies
     init(weatherFetcher: WeatherFetchable,
-         localStorageHelper: LocalStorageHelper) {
+         localStorageHelper: LocalStorageManagerProtocol) {
         self.weatherFetcher = weatherFetcher
         self.localStorageHelper = localStorageHelper
         
@@ -37,48 +36,48 @@ final class SearchCityViewModel: BaseViewModel {
         
     }
     
-    deinit {
-        notificationToken?.invalidate()
-    }
-    
     // MARK: Observing
     private func startObservingCities() {
-        self.citiesObservervable = LocalStorageHelper.getCities()
-        self.cities = LocalStorageHelper.getCities()
         
-        notificationToken = citiesObservervable.observe { [unowned self] changes in
+        localStorageHelper.cities.sink { [unowned self] result in
             
-            switch changes {
-            case .initial, .update:
-                cities = LocalStorageHelper.getCities()
+            switch result {
+            case .success(let cities):
+                self.cities = cities
                 reloadTableView()
-            case .error:
-                let weatherError = GenericServerErrorModel(weatherError: .custom(description: "Something went wrong"))
-                self.serverError.send(weatherError)            }
-        }
+
+            case .failure(let error):
+                localStorageError.send(error)
+            }
+            
+        }.store(in: &disposables)
     }
 }
 
-// MARK: Searching
 extension SearchCityViewModel {
-    func startSearching(_ searchText: String?) {
-        guard let searchText = searchText else {return}
-        
-        /// empt string ? then get all cities
-        if searchText.isEmpty {
-            cities = LocalStorageHelper.getCities()
-            reloadTableView()
-            return
-        }
-        
-        /// has cities ? then filter with name
-        let filteredCities = LocalStorageHelper.getCities().where {
-            $0.cityName.contains(searchText, options: [])
+    // MARK: Filter local cities
+    
+//    func startSearching(_ searchText: String?) {
+//        guard let searchText = searchText else {return}
+//        
+//        /// empt string ? then get all cities
+//        if searchText.isEmpty {
+//            cities = localStorageHelper.getCities()
+//            reloadTableView()
+//            return
+//        }
+//        
+//        /// has cities ? then filter with name
+//        filterResultsWith(searchText)
+//    }
+    
+    private func filterResultsWith(_ cityName: String) {
+        let filteredCities = localStorageHelper.getCities().filter {
+            $0.cityName.contains(cityName)
         }
         
         cities = filteredCities
         reloadTableView()
-        
     }
     
     func clickedSearchBtn(_ searchText: String?) {
@@ -91,16 +90,16 @@ extension SearchCityViewModel {
 
 extension SearchCityViewModel {
     // MARK: Table Datasource
-    func getCityNameFor(_ indexPath: IndexPath) -> String {
-        getCityFor(indexPath).cityName
+    func getCityNameFor(_ index: Int) -> String {
+        getCityFor(index).cityName
     }
     
     func getCitiesCount() -> Int {
         cities.count
     }
     
-    func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
-        cities[indexPath.row]
+    func getCityFor(_ index: Int) -> LocalStorageCity {
+        cities[index]
     }
 }
 
@@ -119,16 +118,16 @@ extension SearchCityViewModel {
                 
                 do {
                     /// add to DB
-                    try self.localStorageHelper.addCityWeatherInfoToRealm(weatherInfo: city)
+                    try self.localStorageHelper.addCity(city)
                     
                     /// update results list
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) { [unowned self] in
-                        startSearching(city.cityName)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { [unowned self] in
+                        filterResultsWith(city.cityName)
                     }
                     
                 } catch {
-                    if let error = error as? RealmDBError {
-                        self.realmDBError.send(error)
+                    if let error = error as? LocalStorageError {
+                        self.localStorageError.send(error)
                     }
                 }
             case.failure(let err):

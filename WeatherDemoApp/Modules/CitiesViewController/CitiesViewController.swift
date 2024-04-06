@@ -13,7 +13,7 @@ final class CitiesViewController: UITableViewController {
     private let viewModel: CitiesViewModel!
     private var gradientView: CAGradientLayer?
     private var disposables = Set<AnyCancellable>()
-
+    
     init(viewModel: CitiesViewModel) {
         self.viewModel = viewModel
         super.init(style: .insetGrouped)
@@ -60,15 +60,15 @@ final class CitiesViewController: UITableViewController {
             CityTableCell.self,
             forCellReuseIdentifier: CityTableCell.identifier
         )
-//        tableView.bounces = false
+        //        tableView.bounces = false
     }
     private func addGradient() {
         let pageGradient = Colors.pageGradient
         
         gradientView = tableView.setGradient(colors: pageGradient.colors,
-                                        locations: pageGradient.locations,
-                                        startPoint: pageGradient.startPoint,
-                                        endPoint: pageGradient.endPoint)
+                                             locations: pageGradient.locations,
+                                             startPoint: pageGradient.startPoint,
+                                             endPoint: pageGradient.endPoint)
     }
     
     private func setupPageTitleLbl() {
@@ -76,7 +76,7 @@ final class CitiesViewController: UITableViewController {
     }
     
     // MARK: Navigation Methods
-    private func presentWeatherDetailScreen(_ cityWeatherInfo: CityRealmObject) {
+    private func presentWeatherDetailScreen(_ cityWeatherInfo: LocalStorageCity) {
         let detailVC = CityWeatherEntriesVC(cityWeatherInfo: cityWeatherInfo)
         navigationController?.pushViewController(detailVC, animated: true)
     }
@@ -86,9 +86,9 @@ final class CitiesViewController: UITableViewController {
         let addBtnAction: VoidCallback = { [unowned self] in
             
             let viewModel = SearchCityViewModel(weatherFetcher: WeatherFetcher(),
-                                                localStorageHelper: LocalStorageHelper.getInstance())
-
-            let didSelectCityCompletion: ((CityRealmObject) -> Void) = { [unowned self] cityWeatherInfo in
+                                                localStorageHelper: LocalStorageManager.shared)
+            
+            let didSelectCityCompletion: ((LocalStorageCity) -> Void) = { [unowned self] cityWeatherInfo in
                 
                 /// selected city ? dismiss search screen then present weather details screen
                 dismiss(animated: true)
@@ -176,7 +176,7 @@ extension CitiesViewController {
         }
         .store(in: &disposables)
         
-        viewModel.realmDBError.sink { [unowned self] error in
+        viewModel.localStorageError.sink { [unowned self] error in
             showAlert(error.localizedDescription)
         }
         .store(in: &disposables)
@@ -185,7 +185,7 @@ extension CitiesViewController {
 
 // MARK: Table
 extension CitiesViewController {
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.getCitiesCount()
     }
@@ -195,14 +195,14 @@ extension CitiesViewController {
             return UITableViewCell()
         }
         
-        cell.pageTitleLbl.text = viewModel.getCityNameFor(indexPath)
-
+        cell.pageTitleLbl.text = viewModel.getCityNameFor(indexPath.row)
+        
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let cityWeatherInfo = viewModel.getCityFor(indexPath)
+        let cityWeatherInfo = viewModel.getCityFor(indexPath.row)
         presentWeatherDetailScreen(cityWeatherInfo)
     }
     
@@ -223,7 +223,7 @@ extension CitiesViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            viewModel.deleteCity(indexPath)
+            viewModel.deleteCity(indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         default:
             break
@@ -233,5 +233,5 @@ extension CitiesViewController {
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
-
+    
 }

@@ -6,76 +6,70 @@
 //
 
 import Foundation
-import RealmSwift
 import Combine
 
 final class CitiesViewModel: BaseViewModel {
     
     /// outputs
-    let realmDBError = PassthroughSubject<RealmDBError, Never>()
+    let localStorageError = PassthroughSubject<LocalStorageError, Never>()
     let serverError = PassthroughSubject<GenericServerErrorModel, Never>()
-    private var cities: Results<CityRealmObject>!
+    
+    private var cities = [LocalStorageCity]()
+    private var disposables = Set<AnyCancellable>()
 
     /// callbacks
     var reloadTableView: VoidCallback!
     
     /// service(s)
-    private let localStorageHelper: LocalStorageHelper
-    private var notificationToken: NotificationToken!
-    private var citiesObservervable: Results<CityRealmObject>!
+    private let localStorageHelper: LocalStorageManagerProtocol
 
     /// injecting dependencies
-    init(localStorageHelper: LocalStorageHelper) {
+    init(localStorageHelper: LocalStorageManagerProtocol) {
         self.localStorageHelper = localStorageHelper
         super.init()
-        
+                
         self.startObservingCities()
-    }
-    
-    deinit {
-        notificationToken?.invalidate()
+
     }
     
     // MARK: Observing
     private func startObservingCities() {
-        self.citiesObservervable = LocalStorageHelper.getCities()
-        self.cities = LocalStorageHelper.getCities()
-
-        notificationToken = citiesObservervable.observe { [unowned self] (changes: RealmCollectionChange) in
+        localStorageHelper.cities.sink { [unowned self] result in
             
-            switch changes {
-            case .initial, .update:
-                cities = LocalStorageHelper.getCities()
+            switch result {
+            case .success(let cities):
+                self.cities = cities
                 reloadTableView()
-            case .error:
-                let weatherError = GenericServerErrorModel(weatherError: .custom(description: "Something went wrong"))
-                self.serverError.send(weatherError)            }
-        }
+
+            case .failure(let error):
+                localStorageError.send(error)
+            }
+            
+        }.store(in: &disposables)
     }
-   
 }
 
 extension CitiesViewModel {
     // MARK: Table Datasource
-    func getCityNameFor(_ indexPath: IndexPath) -> String {
-        getCityFor(indexPath).cityName
+    func getCityNameFor(_ index: Int) -> String {
+        getCityFor(index).cityName
     }
     
     func getCitiesCount() -> Int {
         cities.count
     }
     
-    func getCityFor(_ indexPath: IndexPath) -> CityRealmObject {
-        cities[indexPath.row]
+    func getCityFor(_ index: Int) -> LocalStorageCity {
+        cities[index]
     }
     
-    func deleteCity(_ indexPath: IndexPath) {
-        let city = getCityFor(indexPath)
+    func deleteCity(_ index: Int) {
+        let cityName = getCityNameFor(index)
         do {
-            try localStorageHelper.deleteCity(city)
+            try localStorageHelper.deleteCity(by: cityName)
         } catch {
-            if let error = error as? RealmDBError {
-                self.realmDBError.send(error)
+            if let error = error as? LocalStorageError {
+                self.localStorageError.send(error)
             }
         }
     }

@@ -39,10 +39,10 @@ extension SearchCityViewController: UISearchBarDelegate {
         return true
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
-        self.perform(#selector(textDidChange))
-    }
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//
+//        self.perform(#selector(textDidChange))
+//    }
 
     // MARK: SearchButtonClicked
 

@@ -18,9 +18,9 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window = window
             
             /// replace value with .dark or .light to change theme color
-            window.overrideUserInterfaceStyle = .dark
+            window.overrideUserInterfaceStyle = .light
 
-            let citiesViewModel = CitiesViewModel(localStorageHelper: LocalStorageHelper.getInstance())
+            let citiesViewModel = CitiesViewModel(localStorageHelper: LocalStorageManager.shared)
             let viewControlller = CitiesViewController(viewModel: citiesViewModel)
             
             let navController = UINavigationController()
