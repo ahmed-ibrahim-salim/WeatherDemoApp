@@ -1,6 +1,10 @@
 # WeatherDemoApp
 
-track current weather in real-time.
+## Features
+- track current weather in real-time.
+- search for cities to get weather conditions for the current time.
+- maintain list of cities by adding and deleting cities.
+- see historical weather data for each city.
 
 ## Installation:
 
