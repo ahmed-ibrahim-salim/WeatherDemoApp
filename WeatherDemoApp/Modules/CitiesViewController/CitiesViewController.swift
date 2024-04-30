@@ -235,7 +235,6 @@ extension CitiesViewController {
         switch editingStyle {
         case .delete:
             viewModel.deleteCity(indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
         default:
             break
         }
